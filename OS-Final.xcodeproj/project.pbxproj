@@ -16,6 +16,14 @@
 		8C4E94D82930CFE0007591E6 /* OS_FinalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E94D72930CFE0007591E6 /* OS_FinalTests.swift */; };
 		8C4E94E22930CFE0007591E6 /* OS_FinalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E94E12930CFE0007591E6 /* OS_FinalUITests.swift */; };
 		8C4E94E42930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E94E32930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift */; };
+		8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */; };
+		8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */; };
+		8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C958F39293E047D000EF211 /* UIImage+.swift */; };
+		8CA3BC17293F29BF00B029C7 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3BC16293F29BF00B029C7 /* UIColor+.swift */; };
+		8CA3BC19293F2E0900B029C7 /* AlbumMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3BC18293F2E0900B029C7 /* AlbumMainVC.swift */; };
+		8CA3BC1B293F2EAA00B029C7 /* SettingMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3BC1A293F2EAA00B029C7 /* SettingMainVC.swift */; };
+		8CA3BC1E293F2FF300B029C7 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3BC1D293F2FF300B029C7 /* UIView+layout.swift */; };
+		8CC5D0B9293E12380063D262 /* PhotoMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		8C4E94DD2930CFE0007591E6 /* OS-FinalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OS-FinalUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C4E94E12930CFE0007591E6 /* OS_FinalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OS_FinalUITests.swift; sourceTree = "<group>"; };
 		8C4E94E32930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OS_FinalUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCollectionViewCell.swift; sourceTree = "<group>"; };
+		8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BarCollectionViewCell.xib; sourceTree = "<group>"; };
+		8C958F39293E047D000EF211 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		8CA3BC16293F29BF00B029C7 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		8CA3BC18293F2E0900B029C7 /* AlbumMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMainVC.swift; sourceTree = "<group>"; };
+		8CA3BC1A293F2EAA00B029C7 /* SettingMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMainVC.swift; sourceTree = "<group>"; };
+		8CA3BC1D293F2FF300B029C7 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
+		8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMainVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +117,10 @@
 			children = (
 				8C4E94C02930CFDF007591E6 /* AppDelegate.swift */,
 				8C4E94C22930CFDF007591E6 /* SceneDelegate.swift */,
-				8C4E94C42930CFDF007591E6 /* ViewController.swift */,
 				8C4E94C62930CFDF007591E6 /* Main.storyboard */,
+				8CC5D0B5293E11EA0063D262 /* ViewController */,
+				8C810AD62930DC11004E5347 /* Cell */,
+				8C958F37293E0444000EF211 /* Extension */,
 				8C4E94C92930CFE0007591E6 /* Assets.xcassets */,
 				8C4E94CB2930CFE0007591E6 /* LaunchScreen.storyboard */,
 				8C4E94CE2930CFE0007591E6 /* Info.plist */,
@@ -125,6 +143,76 @@
 				8C4E94E32930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift */,
 			);
 			path = "OS-FinalUITests";
+			sourceTree = "<group>";
+		};
+		8C810AD62930DC11004E5347 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8C810AD72930DC30004E5347 /* CollectionView */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		8C810AD72930DC30004E5347 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				8C810AD82930DC74004E5347 /* BarCollectionViewCell */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		8C810AD82930DC74004E5347 /* BarCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */,
+				8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */,
+			);
+			path = BarCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		8C958F37293E0444000EF211 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8CA3BC15293F298E00B029C7 /* UIColor */,
+				8C958F38293E0465000EF211 /* UIImage */,
+				8CA3BC1C293F2FD400B029C7 /* UIView */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		8C958F38293E0465000EF211 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				8C958F39293E047D000EF211 /* UIImage+.swift */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		8CA3BC15293F298E00B029C7 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				8CA3BC16293F29BF00B029C7 /* UIColor+.swift */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		8CA3BC1C293F2FD400B029C7 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				8CA3BC1D293F2FF300B029C7 /* UIView+layout.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		8CC5D0B5293E11EA0063D262 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8CA3BC18293F2E0900B029C7 /* AlbumMainVC.swift */,
+				8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */,
+				8CA3BC1A293F2EAA00B029C7 /* SettingMainVC.swift */,
+				8C4E94C42930CFDF007591E6 /* ViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +321,7 @@
 			files = (
 				8C4E94CD2930CFE0007591E6 /* LaunchScreen.storyboard in Resources */,
 				8C4E94CA2930CFE0007591E6 /* Assets.xcassets in Resources */,
+				8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */,
 				8C4E94C82930CFDF007591E6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,7 +349,14 @@
 			files = (
 				8C4E94C52930CFDF007591E6 /* ViewController.swift in Sources */,
 				8C4E94C12930CFDF007591E6 /* AppDelegate.swift in Sources */,
+				8CC5D0B9293E12380063D262 /* PhotoMainVC.swift in Sources */,
+				8CA3BC19293F2E0900B029C7 /* AlbumMainVC.swift in Sources */,
+				8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */,
+				8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */,
+				8CA3BC1E293F2FF300B029C7 /* UIView+layout.swift in Sources */,
+				8CA3BC1B293F2EAA00B029C7 /* SettingMainVC.swift in Sources */,
 				8C4E94C32930CFDF007591E6 /* SceneDelegate.swift in Sources */,
+				8CA3BC17293F29BF00B029C7 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,13 +533,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ACX3M6X8Z7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "OS-Final/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Final;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -464,13 +564,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ACX3M6X8Z7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "OS-Final/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Final;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
