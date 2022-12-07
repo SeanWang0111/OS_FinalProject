@@ -6,6 +6,7 @@ target 'OS-Final' do
   use_frameworks!
 
   pod 'SDWebImage', '~> 5.11.1'
+  pod 'RealmSwift', '~> 5.0.0'
 
   target 'OS-FinalTests' do
     inherit! :search_paths
