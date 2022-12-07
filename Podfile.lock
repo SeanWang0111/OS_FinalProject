@@ -7,22 +7,26 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - RealmSwift (~> 5.0.0)
   - SDWebImage (~> 5.11.1)
+  - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
     - Realm
     - RealmSwift
     - SDWebImage
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Realm: bfca1699b61b0b17c3a69ae0e648314eae91fbdb
   RealmSwift: 493c9f089cd3893b3959007973c0e4f640906ba0
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: f2e918fd5ec9ec7d035e56a5cac108d86833cb16
+PODFILE CHECKSUM: 201bba32e37cdca23b8aa33cd671466ac9a36f58
 
 COCOAPODS: 1.11.3

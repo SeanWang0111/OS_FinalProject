@@ -4,9 +4,10 @@
 target 'OS-Final' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  pod 'SDWebImage', '~> 5.11.1'
+  
   pod 'RealmSwift', '~> 5.0.0'
+  pod 'SDWebImage', '~> 5.11.1'
+  pod 'Toast-Swift', '~> 5.0.1'
 
   target 'OS-FinalTests' do
     inherit! :search_paths
