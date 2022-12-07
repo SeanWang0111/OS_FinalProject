@@ -5,7 +5,7 @@ target 'OS-Final' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for OS-Final
+  pod 'SDWebImage', '~> 5.11.1'
 
   target 'OS-FinalTests' do
     inherit! :search_paths
