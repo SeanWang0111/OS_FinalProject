@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     
     internal func scroll(to page: Int, animated: Bool) {
         DispatchQueue.main.async {
-            self.scrollView.setContentOffset(CGPoint(x: CGFloat(page) * UIScreen.main.bounds.width, y: 0), animated: animated)
+            self.scrollView.setContentOffset(CGPoint(x: CGFloat(page) * AppWidth, y: 0), animated: animated)
             self.setPageView(page: page, animated: animated)
         }
     }
@@ -58,7 +58,7 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width:  UIScreen.main.bounds.width / CGFloat(barCount), height: 60)
+        return CGSize(width:  AppWidth / CGFloat(barCount), height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
