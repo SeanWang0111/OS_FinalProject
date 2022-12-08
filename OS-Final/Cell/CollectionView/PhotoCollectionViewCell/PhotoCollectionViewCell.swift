@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
@@ -18,8 +19,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     private func componentsInit() {
-        guard let url = URL(string: "https://itutbox.s3.amazonaws.com/picture/production/2457A79A-46E3-4A76-8EB4-EE480CCB2A03.jpg"), let data = try? Data(contentsOf: url) else { return }
-        imageView_photo.image = UIImage(data: data)
+        guard let url = URL(string: "https://itutbox.s3.amazonaws.com/picture/production/2457A79A-46E3-4A76-8EB4-EE480CCB2A03.jpg") else { return }
+        imageView_photo.sd_setImage(with: url)
         imageView_photo_height.constant = AppWidth / 3 - 15 - 5
     }
 }
