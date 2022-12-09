@@ -11,8 +11,21 @@ class PhotoMainVC: UIViewController {
     
     @IBOutlet var view_title: UIView!
     
+    @IBOutlet var view_choose: UIView!
+    @IBOutlet var label_choose: UILabel!
+    
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
+    
+    @IBOutlet var stackView_menu: UIStackView!
+    
+    private var isChoose: Bool = false { didSet {
+        label_choose.text = isChoose ? "取消" : "選取"
+        collectionView.reloadData()
+        stackView_menu.isHidden = !isChoose
+    }}
+    
+    private var choosePhoto = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,27 +44,67 @@ class PhotoMainVC: UIViewController {
         gradient.colors = [UIColor.white_FFFFFF.cgColor, UIColor.white_FFFFFF_0.cgColor]
         gradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: view_title.bounds.size.height)
         view_title.layer.insertSublayer(gradient, at: 0)
+        
+        view_choose.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseTapped)))
+        
+        stackView_menu.layer.maskedCorners = [.layerMinXMinYCorner]
     }
     
     private func collectionViewInit() {
         collectionView.register(UINib(nibName: "PhotoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
         collectionView_flowLayout.minimumLineSpacing = 10
         collectionView_flowLayout.minimumInteritemSpacing = 10
-        collectionView_flowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        collectionView_flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView_flowLayout.itemSize = CGSize(width: (AppWidth - 30) / 3, height: (AppWidth - 30) / 3)
+    }
+    
+    @objc private func chooseTapped() {
+        isChoose.toggle()
+        
+        let parentVC = parent as? ViewController
+        parentVC?.useCollection(isUse: !isChoose)
+        
+        guard !isChoose else { return }
+        choosePhoto.removeAll()
     }
 }
 
 extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width:  AppWidth / 3 - 15, height: AppWidth / 3 - 15)
+        return photoArr.count + (isChoose ? 0 : 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
+        if photoArr.isEmpty {
+            cell.setCell(urlStr: "", isPlus: true)
+        } else if photoArr.indices.contains(indexPath.row), indexPath.row < photoArr.count {
+            cell.setCell(urlStr: photoArr[indexPath.row], isPlus: false)
+        } else {
+            cell.setCell(urlStr: "", isPlus: true)
+        }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isChoose {
+            var isTag: Bool = false
+            let cell = collectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell
+            
+            for i in 0..<choosePhoto.count where choosePhoto[i] == indexPath.row {
+                isTag = true
+                choosePhoto.remove(at: i)
+                cell?.tagPhoto(isTag: false)
+                break
+            }
+            
+            if !isTag {
+                choosePhoto.append(indexPath.row)
+                cell?.tagPhoto(isTag: true)
+            }
+            
+        } else {
+            
+        }
     }
 }

@@ -50,6 +50,11 @@ class ViewController: UIViewController {
             self.setPageView(page: page, animated: animated)
         }
     }
+    
+    /// 當各介面在執行功能，可保險鎖住根目錄。
+    internal func useCollection(isUse: Bool = true) {
+        collectionView.isUserInteractionEnabled = isUse
+    }
 }
 
 extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

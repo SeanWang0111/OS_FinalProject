@@ -10,17 +10,32 @@ import SDWebImage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet var constant_height: NSLayoutConstraint!
+    
+    @IBOutlet var view_image: UIView!
     @IBOutlet var imageView_photo: UIImageView!
-    @IBOutlet var imageView_photo_height: NSLayoutConstraint!
+    
+    @IBOutlet var view_check: UIView!
+    
+    @IBOutlet var view_plus: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         componentsInit()
     }
     
+    func setCell(urlStr: String, isPlus: Bool) {
+        view_image.isHidden = isPlus
+        view_plus.isHidden = !isPlus
+        view_check.isHidden = true
+        imageView_photo.sd_setImage(with: URL(string: urlStr))
+    }
+    
+    func tagPhoto(isTag: Bool = false) {
+        view_check.isHidden = !isTag
+    }
+    
     private func componentsInit() {
-        guard let url = URL(string: "https://itutbox.s3.amazonaws.com/picture/production/2457A79A-46E3-4A76-8EB4-EE480CCB2A03.jpg") else { return }
-        imageView_photo.sd_setImage(with: url)
-        imageView_photo_height.constant = AppWidth / 3 - 15 - 5
+        constant_height.constant = (AppWidth - 30) / 3 - 10
     }
 }
