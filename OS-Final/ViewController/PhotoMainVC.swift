@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoMainVC: UIViewController {
+class PhotoMainVC: NotificationVC {
     
     @IBOutlet var view_title: UIView!
     

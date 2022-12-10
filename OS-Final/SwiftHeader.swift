@@ -35,3 +35,12 @@ var photoArr: [String] = ["https://itutbox.s3.amazonaws.com/picture/production/2
                           "https://itutbox.s3.amazonaws.com/picture/production/90D5D3F8-14AD-4F39-B7E3-B8507E87FE72.jpg",
                           "https://itutbox.s3.amazonaws.com/picture/production/D36259B2-FDE8-49C9-BC95-2BEEE38C67B1.jpg",
                           "https://itutbox.s3.amazonaws.com/picture/production/EFE1A086-4384-4301-88E3-87F264630C5F.jpg"]
+
+func setBackBarItem() -> UIButton {
+    let imgView = UIImageView(image: UIImage(named: "back_arrow"))
+    // y = 44/2/2
+    imgView.frame = CGRect(x: 0, y: 11, width: imgView.frame.size.width, height: imgView.frame.size.height)
+    let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 90, height: 44))
+    backButton.addSubview(imgView)
+    return backButton
+}

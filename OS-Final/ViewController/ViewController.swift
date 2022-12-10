@@ -7,15 +7,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: NotificationVC {
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
-    static var selectIndex: Int = 0
-    
     private var barCount: Int = 3
+    
+    static var selectIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
