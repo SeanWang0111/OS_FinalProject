@@ -18,7 +18,7 @@ class AlbumMainVC: UIViewController {
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
     private var isRemove: Bool = false { didSet {
-        label_edit.text = isRemove ? "完成" : "編輯"
+        label_edit.text = isRemove ? "完成" : "設定"
         collectionView.reloadData()
     }}
     

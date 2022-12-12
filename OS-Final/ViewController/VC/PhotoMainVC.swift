@@ -104,7 +104,9 @@ extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
             }
             
         } else {
-            
+            if indexPath.row >= photoArr.count {
+                navigationController?.pushViewController(NewPhotoVC(), animated: true)
+            }
         }
     }
 }

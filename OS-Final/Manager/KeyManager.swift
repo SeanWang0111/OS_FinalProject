@@ -12,5 +12,5 @@ import UIKit
 
 class KeyManager: NSObject {
     
-    static let API_URL: String = "https://am.yanlin.tw/v2/mediaGetter?url=https://www.instagram.com/p/Cl70XgJv2Yp/?utm_source=ig_web_copy_link"
+    static let API_URL: String = "https://am.yanlin.tw/v2/"
 }

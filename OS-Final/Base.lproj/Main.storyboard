@@ -17,6 +17,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vy1-eD-fWJ">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -38,7 +39,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="P0R-Vo-bFs">
-                                <rect key="frame" x="0.0" y="91" width="390" height="659"/>
+                                <rect key="frame" x="0.0" y="91" width="390" height="719"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndT-dJ-ZnB">
                                 <rect key="frame" x="0.0" y="91" width="390" height="658"/>
@@ -119,10 +120,10 @@
                             <constraint firstItem="PM8-kj-WGH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="M6Z-8h-a2k"/>
                             <constraint firstItem="l1r-i1-z90" firstAttribute="top" secondItem="ndT-dJ-ZnB" secondAttribute="bottom" id="NHH-uR-dN6"/>
                             <constraint firstItem="ndT-dJ-ZnB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rng-n8-b9w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="P0R-Vo-bFs" secondAttribute="bottom" id="Vcg-FE-zsx"/>
                             <constraint firstItem="l1r-i1-z90" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bPf-VY-1kw"/>
                             <constraint firstItem="ndT-dJ-ZnB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fHb-GE-NOB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ndT-dJ-ZnB" secondAttribute="trailing" id="ifV-2z-dWG"/>
-                            <constraint firstItem="PM8-kj-WGH" firstAttribute="top" secondItem="P0R-Vo-bFs" secondAttribute="bottom" id="nEF-Fe-2io"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P0R-Vo-bFs" secondAttribute="trailing" id="uwm-P8-jgz"/>
                             <constraint firstItem="P0R-Vo-bFs" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="x9t-kd-KIB"/>
                             <constraint firstItem="P0R-Vo-bFs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yjb-D9-xV7"/>
@@ -328,7 +329,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djM-Uo-RLx">
                                         <rect key="frame" x="310" y="15" width="60" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="編輯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkh-D0-4Di">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="設定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkh-D0-4Di">
                                                 <rect key="frame" x="13.666666666666686" y="5" width="33" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <color key="textColor" name="blue_0A84FF"/>

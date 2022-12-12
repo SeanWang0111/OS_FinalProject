@@ -24,7 +24,7 @@ class APIManager {
     }
     
     static func httpGet<T>(apiName: String, resClass: T.Type) where T: Decodable {
-        let address: String = apiName.contains("https") ? "\(apiName)" : "\(KeyManager.API_URL)\(apiName)"
+        let address: String = "\(KeyManager.API_URL)\(apiName)"
         guard let addressURL = URL(string: address) else { return }
         
         var urlRequest = URLRequest(url: addressURL)
