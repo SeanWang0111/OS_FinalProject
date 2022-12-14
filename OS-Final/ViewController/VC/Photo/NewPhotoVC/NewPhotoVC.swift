@@ -34,6 +34,9 @@ class NewPhotoVC: NotificationVC {
         return label
     }()
     
+    private var photoData = UserDefaultManager.getPhoto()
+    private var messageData = [MediaGetterRes.Messages]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         componentsInit()
@@ -93,6 +96,8 @@ class NewPhotoVC: NotificationVC {
     
     private func handleMediaGetter(res: MediaGetterRes) {
         guard let messages = res.messages else { return }
+        messageData = messages
+        
         view_image.isHidden = false
         view_action.isHidden = false
         
@@ -100,6 +105,11 @@ class NewPhotoVC: NotificationVC {
         label_imageCount.text = "\(messages.count)"
         
         imageView_photo.sd_setImage(with: URL(string: messages[0].previewImageUrl))
+    }
+    
+    private func typeChange(urlStr: String) -> Data {
+        guard let urlStr: URL = URL(string: urlStr), let data: Data = try? Data(contentsOf: urlStr) else { return Data() }
+        return data
     }
     
     @objc private func crossTapped() {
@@ -110,12 +120,10 @@ class NewPhotoVC: NotificationVC {
     
     @objc private func searchTapped() {
         view.endEditing(true)
-        
         guard !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             view.makeToast("請輸入內容")
             return
         }
-        
         guard let urlStr: String = textView.text, let escapedString: String = "\(urlStr)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         APIManager.doMediaGetter(url: escapedString)
     }
@@ -129,7 +137,20 @@ class NewPhotoVC: NotificationVC {
     }
     
     @objc private func importTapped() {
+        let mainQueue = DispatchQueue.main
+        let secQueue = DispatchQueue.global()
+        let groupQueue = DispatchGroup()
         
+        for list in messageData {
+            secQueue.async(group: groupQueue) {
+                let detail = photoDataInfo(type: list.type, previewImageUrl: list.previewImageUrl, originalContentUrl: list.originalContentUrl, image: self.typeChange(urlStr: list.previewImageUrl), video: list.type == "image" ? Data() : self.typeChange(urlStr: list.originalContentUrl))
+                self.photoData.append(detail)
+            }
+        }
+        groupQueue.notify(queue: mainQueue) {
+            UserDefaultManager.setPhoto(self.photoData)
+            self.view.makeToast("匯入成功")
+        }
     }
     
     @objc private func killKeyboard() {

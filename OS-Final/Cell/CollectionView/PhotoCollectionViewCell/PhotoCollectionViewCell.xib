@@ -35,6 +35,15 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6up-6p-2o0">
+                                        <rect key="frame" x="5" y="5.9999999999999982" width="30" height="28.666666666666664"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="6up-6p-2o0" secondAttribute="height" multiplier="1:1" id="85u-XG-bls"/>
+                                            <constraint firstAttribute="height" constant="30" id="YSc-3V-ga8"/>
+                                        </constraints>
+                                    </imageView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S78-Ai-Vjf" userLabel="View Check">
                                         <rect key="frame" x="0.0" y="0.0" width="211" height="211"/>
                                         <subviews>
@@ -73,6 +82,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="sDU-of-6V7" secondAttribute="height" multiplier="1:1" id="4S1-XS-aUS"/>
+                                    <constraint firstItem="6up-6p-2o0" firstAttribute="top" secondItem="sDU-of-6V7" secondAttribute="top" constant="5" id="P1Z-7V-zhZ"/>
                                     <constraint firstItem="S78-Ai-Vjf" firstAttribute="leading" secondItem="sDU-of-6V7" secondAttribute="leading" id="PyI-Jx-fEo"/>
                                     <constraint firstItem="S78-Ai-Vjf" firstAttribute="centerX" secondItem="sDU-of-6V7" secondAttribute="centerX" id="UtW-Oy-Odm"/>
                                     <constraint firstItem="Gsn-cN-IMm" firstAttribute="leading" secondItem="sDU-of-6V7" secondAttribute="leading" id="WsM-HN-Rt6"/>
@@ -80,6 +90,7 @@
                                     <constraint firstItem="Gsn-cN-IMm" firstAttribute="centerX" secondItem="sDU-of-6V7" secondAttribute="centerX" id="Zgh-CR-j6S"/>
                                     <constraint firstItem="S78-Ai-Vjf" firstAttribute="centerY" secondItem="sDU-of-6V7" secondAttribute="centerY" id="h69-0q-uCK"/>
                                     <constraint firstItem="Gsn-cN-IMm" firstAttribute="centerY" secondItem="sDU-of-6V7" secondAttribute="centerY" id="irM-MQ-PWd"/>
+                                    <constraint firstItem="6up-6p-2o0" firstAttribute="leading" secondItem="sDU-of-6V7" secondAttribute="leading" constant="5" id="nQ8-qx-HZf"/>
                                     <constraint firstItem="Gsn-cN-IMm" firstAttribute="top" secondItem="sDU-of-6V7" secondAttribute="top" id="pww-jR-2zW"/>
                                 </constraints>
                             </view>
@@ -132,6 +143,7 @@
             <connections>
                 <outlet property="constant_height" destination="gS4-ap-WPn" id="M6M-xd-C7o"/>
                 <outlet property="imageView_photo" destination="Gsn-cN-IMm" id="257-vW-4SJ"/>
+                <outlet property="imageView_video" destination="6up-6p-2o0" id="lky-FL-O5f"/>
                 <outlet property="view_check" destination="S78-Ai-Vjf" id="N0R-Ob-hZm"/>
                 <outlet property="view_image" destination="sDU-of-6V7" id="mao-ns-WBA"/>
                 <outlet property="view_plus" destination="wy1-EM-ODv" id="aih-9P-KgQ"/>
@@ -142,6 +154,7 @@
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="video.circle" catalog="system" width="128" height="123"/>
         <namedColor name="black_000000_25">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -26,10 +26,17 @@ class PhotoMainVC: NotificationVC {
     }}
     
     private var choosePhoto = [Int]()
+    private var photoData = UserDefaultManager.getPhoto()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         componentsInit()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        photoData = UserDefaultManager.getPhoto()
+        collectionView.reloadData()
     }
     
     private func componentsInit() {
@@ -71,15 +78,13 @@ class PhotoMainVC: NotificationVC {
 
 extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoArr.count + (isChoose ? 0 : 1)
+        return photoData.count + (isChoose ? 0 : 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
-        if photoArr.isEmpty {
-            cell.setCell(urlStr: "", isPlus: true)
-        } else if photoArr.indices.contains(indexPath.row), indexPath.row < photoArr.count {
-            cell.setCell(urlStr: photoArr[indexPath.row], isPlus: false)
+        if !photoData.isEmpty, indexPath.row < photoData.count {
+            cell.setCell(data: photoData[indexPath.row], isPlus: false)
         } else {
             cell.setCell(urlStr: "", isPlus: true)
         }
@@ -104,8 +109,10 @@ extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
             }
             
         } else {
-            if indexPath.row >= photoArr.count {
+            if indexPath.row >= photoData.count {
                 navigationController?.pushViewController(NewPhotoVC(), animated: true)
+            } else {
+                
             }
         }
     }

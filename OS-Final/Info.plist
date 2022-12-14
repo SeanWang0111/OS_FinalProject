@@ -23,5 +23,11 @@
 	</dict>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要您同意 才能寫入相簿</string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要您同意 才能訪問相機</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要您同意 才能訪問相簿</string>
 </dict>
 </plist>

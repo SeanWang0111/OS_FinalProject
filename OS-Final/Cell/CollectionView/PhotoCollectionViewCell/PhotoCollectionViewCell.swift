@@ -15,6 +15,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet var view_image: UIView!
     @IBOutlet var imageView_photo: UIImageView!
     
+    @IBOutlet var imageView_video: UIImageView!
+    
     @IBOutlet var view_check: UIView!
     
     @IBOutlet var view_plus: UIView!
@@ -29,6 +31,19 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         view_plus.isHidden = !isPlus
         view_check.isHidden = true
         imageView_photo.sd_setImage(with: URL(string: urlStr))
+    }
+    
+    func setCell(data: photoDataInfo, isPlus: Bool) {
+        view_image.isHidden = isPlus
+        view_plus.isHidden = !isPlus
+        view_check.isHidden = true
+        imageView_video.isHidden = data.type == "image"
+        
+        if let image = UIImage(data: data.image) {
+            imageView_photo.image = image
+        } else {
+            imageView_photo.sd_setImage(with: URL(string: data.previewImageUrl))
+        }
     }
     
     func tagPhoto(isTag: Bool = false) {

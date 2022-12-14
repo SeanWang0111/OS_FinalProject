@@ -10,6 +10,9 @@
 		65DFEECB2278C2C74270CAC3 /* Pods_OS_Final.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D738F68D07A32D4FFB5F460C /* Pods_OS_Final.framework */; };
 		6783F7B96685E16A45132EE5 /* Pods_OS_FinalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57EE5188785D9FB221B3183 /* Pods_OS_FinalTests.framework */; };
 		6D9A32E3D9B06B236630E294 /* Pods_OS_Final_OS_FinalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3DBF242B522C48282B5C35 /* Pods_OS_Final_OS_FinalUITests.framework */; };
+		8C08865029472621008F6620 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08864F29472621008F6620 /* UserDefaultManager.swift */; };
+		8C0886522947463A008F6620 /* photoDataInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0886512947463A008F6620 /* photoDataInfo.swift */; };
+		8C0886552948743D008F6620 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0886542948743D008F6620 /* Array+.swift */; };
 		8C0CA6032944840D0095AB57 /* NewPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0CA6012944840D0095AB57 /* NewPhotoVC.swift */; };
 		8C0CA6042944840D0095AB57 /* NewPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0CA6022944840D0095AB57 /* NewPhotoVC.xib */; };
 		8C1BDA82293F62F300176BED /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1BDA80293F62F300176BED /* PhotoCollectionViewCell.swift */; };
@@ -67,6 +70,9 @@
 		41D0B0191A432925C7FA1389 /* Pods-OS-Final-OS-FinalUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OS-Final-OS-FinalUITests.release.xcconfig"; path = "Target Support Files/Pods-OS-Final-OS-FinalUITests/Pods-OS-Final-OS-FinalUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4B30020FF6A542BD259C3368 /* Pods-OS-Final.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OS-Final.release.xcconfig"; path = "Target Support Files/Pods-OS-Final/Pods-OS-Final.release.xcconfig"; sourceTree = "<group>"; };
 		60AA1E2C5064A54129B11594 /* Pods-OS-Final.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OS-Final.debug.xcconfig"; path = "Target Support Files/Pods-OS-Final/Pods-OS-Final.debug.xcconfig"; sourceTree = "<group>"; };
+		8C08864F29472621008F6620 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
+		8C0886512947463A008F6620 /* photoDataInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoDataInfo.swift; sourceTree = "<group>"; };
+		8C0886542948743D008F6620 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		8C0CA6012944840D0095AB57 /* NewPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhotoVC.swift; sourceTree = "<group>"; };
 		8C0CA6022944840D0095AB57 /* NewPhotoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPhotoVC.xib; sourceTree = "<group>"; };
 		8C1BDA80293F62F300176BED /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -156,6 +162,14 @@
 				1164D36026F7BA37EDDE3D60 /* Pods-OS-FinalTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8C0886532948742A008F6620 /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				8C0886542948743D008F6620 /* Array+.swift */,
+			);
+			path = Array;
 			sourceTree = "<group>";
 		};
 		8C0CA600294483A50095AB57 /* Photo */ = {
@@ -272,6 +286,7 @@
 		8C958F37293E0444000EF211 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				8C0886532948742A008F6620 /* Array */,
 				8CE8F967294707660098E480 /* UIApplication */,
 				8CA3BC15293F298E00B029C7 /* UIColor */,
 				8C958F38293E0465000EF211 /* UIImage */,
@@ -334,6 +349,7 @@
 			children = (
 				8CFE2BEA2943477C00398413 /* ApiManager */,
 				8CFE2BED2943495D00398413 /* KeyManager.swift */,
+				8C08864F29472621008F6620 /* UserDefaultManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -368,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				8CFE2BF42944770500398413 /* MediaGetterRes.swift */,
+				8C0886512947463A008F6620 /* photoDataInfo.swift */,
 			);
 			path = MediaGetter;
 			sourceTree = "<group>";
@@ -637,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C4E94C52930CFDF007591E6 /* ViewController.swift in Sources */,
+				8C0886552948743D008F6620 /* Array+.swift in Sources */,
 				8C1BDA82293F62F300176BED /* PhotoCollectionViewCell.swift in Sources */,
 				8CE8F969294707740098E480 /* UIApplication+.swift in Sources */,
 				8CFE2BF02944761500398413 /* ApiManager+.swift in Sources */,
@@ -654,6 +672,8 @@
 				8C4E94C32930CFDF007591E6 /* SceneDelegate.swift in Sources */,
 				8CA3BC22293F377D00B029C7 /* AlbumCollectionViewCell.swift in Sources */,
 				8CFE2BF52944770500398413 /* MediaGetterRes.swift in Sources */,
+				8C08865029472621008F6620 /* UserDefaultManager.swift in Sources */,
+				8C0886522947463A008F6620 /* photoDataInfo.swift in Sources */,
 				8CA3BC17293F29BF00B029C7 /* UIColor+.swift in Sources */,
 				8CFE2BE82943301F00398413 /* NotificationVC.swift in Sources */,
 				8CFE2BEE2943495D00398413 /* KeyManager.swift in Sources */,
