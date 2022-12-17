@@ -17,5 +17,6 @@ extension UIColor {
     
     // MARK: 白色
     static var white_FFFFFF: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
+    static var white_FFFFFF_50: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5) }
     static var white_FFFFFF_0: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) }
 }

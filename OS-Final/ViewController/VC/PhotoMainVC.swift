@@ -112,7 +112,7 @@ extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
             if indexPath.row >= photoData.count {
                 navigationController?.pushViewController(NewPhotoVC(), animated: true)
             } else {
-                
+                navigationController?.pushViewController(PhotoDetailVC(photoData: photoData, index: indexPath.row), animated: true)
             }
         }
     }

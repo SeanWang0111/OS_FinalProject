@@ -13,6 +13,8 @@
 		8C08865029472621008F6620 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08864F29472621008F6620 /* UserDefaultManager.swift */; };
 		8C0886522947463A008F6620 /* photoDataInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0886512947463A008F6620 /* photoDataInfo.swift */; };
 		8C0886552948743D008F6620 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0886542948743D008F6620 /* Array+.swift */; };
+		8C08865A2949F7F0008F6620 /* PhotoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0886582949F7F0008F6620 /* PhotoDetailVC.swift */; };
+		8C08865B2949F7F0008F6620 /* PhotoDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0886592949F7F0008F6620 /* PhotoDetailVC.xib */; };
 		8C0CA6032944840D0095AB57 /* NewPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0CA6012944840D0095AB57 /* NewPhotoVC.swift */; };
 		8C0CA6042944840D0095AB57 /* NewPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0CA6022944840D0095AB57 /* NewPhotoVC.xib */; };
 		8C1BDA82293F62F300176BED /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1BDA80293F62F300176BED /* PhotoCollectionViewCell.swift */; };
@@ -73,6 +75,8 @@
 		8C08864F29472621008F6620 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		8C0886512947463A008F6620 /* photoDataInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoDataInfo.swift; sourceTree = "<group>"; };
 		8C0886542948743D008F6620 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		8C0886582949F7F0008F6620 /* PhotoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailVC.swift; sourceTree = "<group>"; };
+		8C0886592949F7F0008F6620 /* PhotoDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoDetailVC.xib; sourceTree = "<group>"; };
 		8C0CA6012944840D0095AB57 /* NewPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhotoVC.swift; sourceTree = "<group>"; };
 		8C0CA6022944840D0095AB57 /* NewPhotoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPhotoVC.xib; sourceTree = "<group>"; };
 		8C1BDA80293F62F300176BED /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -172,10 +176,27 @@
 			path = Array;
 			sourceTree = "<group>";
 		};
+		8C0886562949F7AC008F6620 /* DialogVC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DialogVC;
+			sourceTree = "<group>";
+		};
+		8C0886572949F7CC008F6620 /* PhotoDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C0886582949F7F0008F6620 /* PhotoDetailVC.swift */,
+				8C0886592949F7F0008F6620 /* PhotoDetailVC.xib */,
+			);
+			path = PhotoDetailVC;
+			sourceTree = "<group>";
+		};
 		8C0CA600294483A50095AB57 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
 				8C0CA6052944841C0095AB57 /* NewPhotoVC */,
+				8C0886572949F7CC008F6620 /* PhotoDetailVC */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
@@ -331,6 +352,7 @@
 		8CC5D0B5293E11EA0063D262 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8C0886562949F7AC008F6620 /* DialogVC */,
 				8CFE2BF9294482B200398413 /* VC */,
 			);
 			path = ViewController;
@@ -524,6 +546,7 @@
 				8C0CA6042944840D0095AB57 /* NewPhotoVC.xib in Resources */,
 				8CA3BC23293F377D00B029C7 /* AlbumCollectionViewCell.xib in Resources */,
 				8C1BDA83293F62F300176BED /* PhotoCollectionViewCell.xib in Resources */,
+				8C08865B2949F7F0008F6620 /* PhotoDetailVC.xib in Resources */,
 				8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */,
 				8C4E94C82930CFDF007591E6 /* Main.storyboard in Resources */,
 			);
@@ -664,6 +687,7 @@
 				8CA3BC19293F2E0900B029C7 /* AlbumMainVC.swift in Sources */,
 				8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */,
 				8C0CA6032944840D0095AB57 /* NewPhotoVC.swift in Sources */,
+				8C08865A2949F7F0008F6620 /* PhotoDetailVC.swift in Sources */,
 				8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */,
 				8CFE2BEC294347A100398413 /* ApiManager.swift in Sources */,
 				8C551BA7293F406700516302 /* SwiftHeader.swift in Sources */,
