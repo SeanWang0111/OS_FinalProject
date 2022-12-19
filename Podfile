@@ -8,6 +8,7 @@ target 'OS-Final' do
   pod 'RealmSwift', '~> 5.0.0'
   pod 'SDWebImage', '~> 5.11.1'
   pod 'Toast-Swift', '~> 5.0.1'
+  pod 'UICircularProgressRing', '~> 6.5.0'
 
   target 'OS-FinalTests' do
     inherit! :search_paths

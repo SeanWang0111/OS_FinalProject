@@ -8,11 +8,13 @@ PODS:
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
   - Toast-Swift (5.0.1)
+  - UICircularProgressRing (6.5.0)
 
 DEPENDENCIES:
   - RealmSwift (~> 5.0.0)
   - SDWebImage (~> 5.11.1)
   - Toast-Swift (~> 5.0.1)
+  - UICircularProgressRing (~> 6.5.0)
 
 SPEC REPOS:
   trunk:
@@ -20,13 +22,15 @@ SPEC REPOS:
     - RealmSwift
     - SDWebImage
     - Toast-Swift
+    - UICircularProgressRing
 
 SPEC CHECKSUMS:
   Realm: bfca1699b61b0b17c3a69ae0e648314eae91fbdb
   RealmSwift: 493c9f089cd3893b3959007973c0e4f640906ba0
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  UICircularProgressRing: e6852e8f88e296cbbbe2720cccb55241acda6708
 
-PODFILE CHECKSUM: 201bba32e37cdca23b8aa33cd671466ac9a36f58
+PODFILE CHECKSUM: ca5057fb7143601a5d73298ae1a2a4629827bf5e
 
 COCOAPODS: 1.11.3

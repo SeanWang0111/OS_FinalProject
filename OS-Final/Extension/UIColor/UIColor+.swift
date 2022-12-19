@@ -15,6 +15,9 @@ extension UIColor {
     static var black_4D4D4D: UIColor { return #colorLiteral(red: 0.3019607843, green: 0.3019607843, blue: 0.3019607843, alpha: 1) }
     static var black_7D7D7D: UIColor { return #colorLiteral(red: 0.4901960784, green: 0.4901960784, blue: 0.4901960784, alpha: 1) }
     
+    // MARK: 藍色
+    static var blue_0A84FF: UIColor { return #colorLiteral(red: 0.03921568627, green: 0.5176470588, blue: 1, alpha: 1) }
+    
     // MARK: 白色
     static var white_FFFFFF: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
     static var white_FFFFFF_50: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5) }

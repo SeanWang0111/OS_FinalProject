@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Photos
+import UICircularProgressRing
+import SDWebImage
 
 class PhotoMainVC: NotificationVC {
     
@@ -18,6 +21,14 @@ class PhotoMainVC: NotificationVC {
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
     @IBOutlet var stackView_menu: UIStackView!
+    @IBOutlet var view_newFolder: UIView!
+    @IBOutlet var view_downLoad: UIView!
+    @IBOutlet var view_trash: UIView!
+    
+    @IBOutlet var view_loading: UIView!
+    @IBOutlet var progressRing_Loading: UICircularProgressRing!
+    @IBOutlet var label_loading: UILabel!
+    @IBOutlet var imageView_loading: SDAnimatedImageView!
     
     private var isChoose: Bool = false { didSet {
         label_choose.text = isChoose ? "取消" : "選取"
@@ -55,6 +66,9 @@ class PhotoMainVC: NotificationVC {
         view_choose.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseTapped)))
         
         stackView_menu.layer.maskedCorners = [.layerMinXMinYCorner]
+        
+        view_downLoad.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(downLoadTapped)))
+        view_trash.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(trashTapped)))
     }
     
     private func collectionViewInit() {
@@ -65,6 +79,62 @@ class PhotoMainVC: NotificationVC {
         collectionView_flowLayout.itemSize = CGSize(width: (AppWidth - 30) / 3, height: (AppWidth - 30) / 3)
     }
     
+    private func downLoadPhoto(photoIndex: Int) {
+        let index: Int = choosePhoto[photoIndex]
+        
+        // 圖片
+        if photoData[index].type == "image" {
+            if let image: UIImage = UIImage(data: photoData[index].image) {
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }
+            
+            setProgressRing(value: photoIndex + 1)
+            if photoIndex + 1 == choosePhoto.count {
+                downLoadFinish()
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                    downLoadPhoto(photoIndex: photoIndex + 1)
+                }
+            }
+        }
+        // 影片
+        else {
+            let galleryPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+            let filePath: String = "\(galleryPath)/nameX.mp4"
+
+            DispatchQueue.main.async {
+                let urlData: NSData = NSData(data: self.photoData[index].video)
+                urlData.write(toFile: filePath, atomically: true)
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: filePath))
+                }) { success, error in
+                    DispatchQueue.main.async { [self] in
+                        setProgressRing(value: photoIndex + 1)
+                        if photoIndex + 1 == choosePhoto.count {
+                            downLoadFinish()
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                                downLoadPhoto(photoIndex: photoIndex + 1)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func setProgressRing(value: Int) {
+        label_loading.text = "\(value) / \(choosePhoto.count)"
+        progressRing_Loading.value = CGFloat(value)
+    }
+    
+    private func downLoadFinish() {
+        view.makeToast("下載成功")
+        chooseTapped()
+        view_loading.isHidden = true
+        imageView_loading.stopAnimating()
+    }
+    
     @objc private func chooseTapped() {
         isChoose.toggle()
         
@@ -73,6 +143,41 @@ class PhotoMainVC: NotificationVC {
         
         guard !isChoose else { return }
         choosePhoto.removeAll()
+    }
+    
+    @objc private func downLoadTapped() {
+        guard !choosePhoto.isEmpty else {
+            view.makeToast("尚未選擇")
+            return
+        }
+        
+        view_loading.isHidden = false
+        label_loading.text = "0 / \(choosePhoto.count)"
+        progressRing_Loading.value = 0
+        progressRing_Loading.maxValue = CGFloat(choosePhoto.count)
+        imageView_loading.image = SDAnimatedImage(named: "loading.gif")
+        imageView_loading.startAnimating()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            downLoadPhoto(photoIndex: 0)
+        }
+    }
+    
+    @objc private func trashTapped() {
+        guard !choosePhoto.isEmpty else {
+            view.makeToast("尚未選擇")
+            return
+        }
+        // 從陣列最後往前刪除 不用擔心位置不一樣
+        choosePhoto.sort(by: >)
+        
+        for i in 0..<choosePhoto.count {
+            photoData.remove(at: choosePhoto[i])
+        }
+        view.makeToast("刪除成功")
+        UserDefaultManager.setPhoto(photoData)
+        chooseTapped()
+        collectionView.reloadData()
     }
 }
 

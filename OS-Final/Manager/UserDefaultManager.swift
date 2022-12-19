@@ -13,6 +13,11 @@ class UserDefaultManager {
         case photo = "Photo"
     }
     
+    // 自己本地清除用途
+    static func clearPhoto() {
+        UserDefaults.standard.removeObject(forKey: defaultKeyStr.photo.rawValue)
+    }
+    
     static func getPhoto() -> [photoDataInfo] {
         guard let data = UserDefaults().object(forKey: defaultKeyStr.photo.rawValue) as? Data, let dataInfo = try? JSONDecoder().decode([photoDataInfo].self, from: data) else { return [photoDataInfo]() }
         return dataInfo
@@ -22,9 +27,5 @@ class UserDefaultManager {
         let data = try? photo.toData()
         UserDefaults().set(data, forKey: defaultKeyStr.photo.rawValue)
         UserDefaults().synchronize()
-    }
-    
-    static func clearPhoto() {
-        UserDefaults.standard.removeObject(forKey: defaultKeyStr.photo.rawValue)
     }
 }
