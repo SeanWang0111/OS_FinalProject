@@ -30,6 +30,10 @@
 		8C4E94E42930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E94E32930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift */; };
 		8C551BA7293F406700516302 /* SwiftHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C551BA6293F406700516302 /* SwiftHeader.swift */; };
 		8C7951DD294DBCA100D70E56 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8C7951DC294DBCA100D70E56 /* loading.gif */; };
+		8C7951E1295081FC00D70E56 /* UIViewController+Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7951E0295081FC00D70E56 /* UIViewController+Dialog.swift */; };
+		8C7951E5295082DE00D70E56 /* ChooseDialogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7951E3295082DE00D70E56 /* ChooseDialogVC.swift */; };
+		8C7951E6295082DE00D70E56 /* ChooseDialogVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C7951E4295082DE00D70E56 /* ChooseDialogVC.xib */; };
+		8C7951E8295087CA00D70E56 /* EnumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7951E7295087CA00D70E56 /* EnumManager.swift */; };
 		8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */; };
 		8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */; };
 		8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C958F39293E047D000EF211 /* UIImage+.swift */; };
@@ -97,6 +101,10 @@
 		8C4E94E32930CFE0007591E6 /* OS_FinalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OS_FinalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8C551BA6293F406700516302 /* SwiftHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftHeader.swift; sourceTree = "<group>"; };
 		8C7951DC294DBCA100D70E56 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		8C7951E0295081FC00D70E56 /* UIViewController+Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Dialog.swift"; sourceTree = "<group>"; };
+		8C7951E3295082DE00D70E56 /* ChooseDialogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDialogVC.swift; sourceTree = "<group>"; };
+		8C7951E4295082DE00D70E56 /* ChooseDialogVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseDialogVC.xib; sourceTree = "<group>"; };
+		8C7951E7295087CA00D70E56 /* EnumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumManager.swift; sourceTree = "<group>"; };
 		8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCollectionViewCell.swift; sourceTree = "<group>"; };
 		8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BarCollectionViewCell.xib; sourceTree = "<group>"; };
 		8C958F39293E047D000EF211 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -181,6 +189,7 @@
 		8C0886562949F7AC008F6620 /* DialogVC */ = {
 			isa = PBXGroup;
 			children = (
+				8C7951E2295082C800D70E56 /* ChooseDialogVC */,
 			);
 			path = DialogVC;
 			sourceTree = "<group>";
@@ -288,6 +297,23 @@
 			path = Gif;
 			sourceTree = "<group>";
 		};
+		8C7951DF295081CE00D70E56 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8C7951E0295081FC00D70E56 /* UIViewController+Dialog.swift */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		8C7951E2295082C800D70E56 /* ChooseDialogVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C7951E3295082DE00D70E56 /* ChooseDialogVC.swift */,
+				8C7951E4295082DE00D70E56 /* ChooseDialogVC.xib */,
+			);
+			path = ChooseDialogVC;
+			sourceTree = "<group>";
+		};
 		8C810AD62930DC11004E5347 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +349,7 @@
 				8CA3BC15293F298E00B029C7 /* UIColor */,
 				8C958F38293E0465000EF211 /* UIImage */,
 				8CA3BC1C293F2FD400B029C7 /* UIView */,
+				8C7951DF295081CE00D70E56 /* UIViewController */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -381,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				8CFE2BEA2943477C00398413 /* ApiManager */,
+				8C7951E7295087CA00D70E56 /* EnumManager.swift */,
 				8CFE2BED2943495D00398413 /* KeyManager.swift */,
 				8C08864F29472621008F6620 /* UserDefaultManager.swift */,
 			);
@@ -553,6 +581,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C4E94CD2930CFE0007591E6 /* LaunchScreen.storyboard in Resources */,
+				8C7951E6295082DE00D70E56 /* ChooseDialogVC.xib in Resources */,
 				8C4E94CA2930CFE0007591E6 /* Assets.xcassets in Resources */,
 				8C0CA6042944840D0095AB57 /* NewPhotoVC.xib in Resources */,
 				8CA3BC23293F377D00B029C7 /* AlbumCollectionViewCell.xib in Resources */,
@@ -692,10 +721,13 @@
 				8C0886552948743D008F6620 /* Array+.swift in Sources */,
 				8C1BDA82293F62F300176BED /* PhotoCollectionViewCell.swift in Sources */,
 				8CE8F969294707740098E480 /* UIApplication+.swift in Sources */,
+				8C7951E8295087CA00D70E56 /* EnumManager.swift in Sources */,
 				8CFE2BF02944761500398413 /* ApiManager+.swift in Sources */,
+				8C7951E5295082DE00D70E56 /* ChooseDialogVC.swift in Sources */,
 				8C4E94C12930CFDF007591E6 /* AppDelegate.swift in Sources */,
 				8CC5D0B9293E12380063D262 /* PhotoMainVC.swift in Sources */,
 				8CFE2BF82944788500398413 /* BaseRes.swift in Sources */,
+				8C7951E1295081FC00D70E56 /* UIViewController+Dialog.swift in Sources */,
 				8CA3BC19293F2E0900B029C7 /* AlbumMainVC.swift in Sources */,
 				8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */,
 				8C0CA6032944840D0095AB57 /* NewPhotoVC.swift in Sources */,

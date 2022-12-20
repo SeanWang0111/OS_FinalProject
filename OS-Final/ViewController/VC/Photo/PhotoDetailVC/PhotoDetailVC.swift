@@ -93,6 +93,7 @@ class PhotoDetailVC: UIViewController {
         
         view_play.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(videoPlayTapped)))
         view_downLoad.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(downLoadTapped)))
+        view_trash.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(trashTapped)))
     }
     
     private func imageInit() {
@@ -223,6 +224,20 @@ class PhotoDetailVC: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc private func trashTapped() {
+        photoData.remove(at: index)
+        UserDefaultManager.setPhoto(photoData)
+        view.makeToast("刪除成功")
+        
+        guard !photoData.isEmpty else {
+            backTapped()
+            return
+        }
+        
+        index = index != 0 ? index - 1 : 0
+        componentsInit()
     }
     
     @objc private func hiddenTapped() {

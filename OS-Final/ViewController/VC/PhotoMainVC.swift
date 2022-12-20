@@ -67,6 +67,7 @@ class PhotoMainVC: NotificationVC {
         
         stackView_menu.layer.maskedCorners = [.layerMinXMinYCorner]
         
+        view_newFolder.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(newFolderTapped)))
         view_downLoad.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(downLoadTapped)))
         view_trash.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(trashTapped)))
     }
@@ -145,22 +146,19 @@ class PhotoMainVC: NotificationVC {
         choosePhoto.removeAll()
     }
     
+    @objc private func newFolderTapped() {
+        guard !choosePhoto.isEmpty else {
+            view.makeToast("尚未選擇")
+            return
+        }
+    }
+    
     @objc private func downLoadTapped() {
         guard !choosePhoto.isEmpty else {
             view.makeToast("尚未選擇")
             return
         }
-        
-        view_loading.isHidden = false
-        label_loading.text = "0 / \(choosePhoto.count)"
-        progressRing_Loading.value = 0
-        progressRing_Loading.maxValue = CGFloat(choosePhoto.count)
-        imageView_loading.image = SDAnimatedImage(named: "loading.gif")
-        imageView_loading.startAnimating()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            downLoadPhoto(photoIndex: 0)
-        }
+        showChooseDialogVC(title: .downLoadToAlbum)
     }
     
     @objc private func trashTapped() {
@@ -168,20 +166,11 @@ class PhotoMainVC: NotificationVC {
             view.makeToast("尚未選擇")
             return
         }
-        // 從陣列最後往前刪除 不用擔心位置不一樣
-        choosePhoto.sort(by: >)
-        
-        for i in 0..<choosePhoto.count {
-            photoData.remove(at: choosePhoto[i])
-        }
-        view.makeToast("刪除成功")
-        UserDefaultManager.setPhoto(photoData)
-        chooseTapped()
-        collectionView.reloadData()
+        showChooseDialogVC(title: .removePhoto)
     }
 }
 
-extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PhotoMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoData.count + (isChoose ? 0 : 1)
     }
@@ -218,6 +207,42 @@ extension PhotoMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
                 navigationController?.pushViewController(NewPhotoVC(), animated: true)
             } else {
                 navigationController?.pushViewController(PhotoDetailVC(photoData: photoData, index: indexPath.row), animated: true)
+            }
+        }
+    }
+}
+
+extension PhotoMainVC: ChooseDialogVCDelegate {
+    func confirmClickWith(title: Titles) {
+        removePresented() {
+            switch title {
+            case .downLoadToAlbum:
+                self.view_loading.isHidden = false
+                self.label_loading.text = "0 / \(self.choosePhoto.count)"
+                self.progressRing_Loading.value = 0
+                self.progressRing_Loading.maxValue = CGFloat(self.choosePhoto.count)
+                self.imageView_loading.image = SDAnimatedImage(named: "loading.gif")
+                self.imageView_loading.startAnimating()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    self.downLoadPhoto(photoIndex: 0)
+                }
+                
+            case .removePhoto:
+                // 從陣列最後往前刪除 不用擔心位置不一樣
+                self.choosePhoto.sort(by: >)
+                
+                for i in 0..<self.choosePhoto.count {
+                    self.photoData.remove(at: self.choosePhoto[i])
+                }
+                
+                UserDefaultManager.setPhoto(self.photoData)
+                self.view.makeToast("刪除成功")
+                self.chooseTapped()
+                self.collectionView.reloadData()
+                
+            default:
+                break
             }
         }
     }

@@ -16,8 +16,14 @@ class NewPhotoVC: NotificationVC {
     
     @IBOutlet var view_image: UIView!
     @IBOutlet var imageView_photo: UIImageView!
+    
+    @IBOutlet var view_left: UIView!
+    @IBOutlet var view_right: UIView!
+    
     @IBOutlet var view_imageCount: UIView!
     @IBOutlet var label_imageCount: UILabel!
+    
+    @IBOutlet var pageControl: UIPageControl!
     
     @IBOutlet var view_action: UIView!
     @IBOutlet var view_remove: UIView!
@@ -36,6 +42,8 @@ class NewPhotoVC: NotificationVC {
     
     private var photoData = UserDefaultManager.getPhoto()
     private var messageData = [MediaGetterRes.Messages]()
+    
+    private var index: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +74,7 @@ class NewPhotoVC: NotificationVC {
         viewInit()
         textViewInit()
         setKillKeyBoardTapGR(tap: 1)
+        pageControlInit()
     }
     
     private func viewInit() {
@@ -76,6 +85,9 @@ class NewPhotoVC: NotificationVC {
         
         view_search.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         view_search.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(searchTapped)))
+        
+        view_left.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(leftTapped)))
+        view_right.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(rightTapped)))
         
         view_image.isHidden = true
         view_action.isHidden = true
@@ -98,6 +110,14 @@ class NewPhotoVC: NotificationVC {
         view.addGestureRecognizer(tapGR)
     }
     
+    private func pageControlInit() {
+        pageControl.isHidden = true
+        pageControl.numberOfPages = 1
+        pageControl.currentPage = 0
+        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.pageIndicatorTintColor = .black_BCBCBC
+    }
+    
     private func handleMediaGetter(res: MediaGetterRes) {
         guard let messages = res.messages else { return }
         messageData = messages
@@ -105,10 +125,17 @@ class NewPhotoVC: NotificationVC {
         view_image.isHidden = false
         view_action.isHidden = false
         
+        view_left.isUserInteractionEnabled = messages.count > 1
+        view_right.isUserInteractionEnabled = messages.count > 1
+        
         view_imageCount.isHidden = messages.count < 2
         label_imageCount.text = "\(messages.count)"
+        index = 0
+        pageControl.isHidden = false
+        pageControl.numberOfPages = messages.count
+        pageControl.currentPage = 0
         
-        imageView_photo.sd_setImage(with: URL(string: messages[0].previewImageUrl))
+        imageView_photo.sd_setImage(with: URL(string: messages[index].previewImageUrl))
     }
     
     private func typeChange(urlStr: String) -> Data {
@@ -132,29 +159,24 @@ class NewPhotoVC: NotificationVC {
         APIManager.doMediaGetter(url: escapedString)
     }
     
+    @objc private func leftTapped() {
+        index = index - 1 < 0 ? messageData.count - 1 : index - 1
+        imageView_photo.sd_setImage(with: URL(string: messageData[index].previewImageUrl))
+        pageControl.currentPage = index
+    }
+    
+    @objc private func rightTapped() {
+        index = index + 1 >= messageData.count ? 0 : index + 1
+        imageView_photo.sd_setImage(with: URL(string: messageData[index].previewImageUrl))
+        pageControl.currentPage = index
+    }
+    
     @objc private func removeTapped() {
-        textView.text = ""
-        view_cross.isHidden = true
-        label_placeHolder.isHidden = false
-        view_image.isHidden = true
-        view_action.isHidden = true
+        showChooseDialogVC(title: .removeSearch)
     }
     
     @objc private func importTapped() {
-        let mainQueue = DispatchQueue.main
-        let secQueue = DispatchQueue.global()
-        let groupQueue = DispatchGroup()
-        
-        for list in messageData {
-            secQueue.async(group: groupQueue) {
-                let detail = photoDataInfo(type: list.type, previewImageUrl: list.previewImageUrl, originalContentUrl: list.originalContentUrl, image: self.typeChange(urlStr: list.previewImageUrl), video: list.type == "image" ? Data() : self.typeChange(urlStr: list.originalContentUrl))
-                self.photoData.append(detail)
-            }
-        }
-        groupQueue.notify(queue: mainQueue) {
-            UserDefaultManager.setPhoto(self.photoData)
-            self.view.makeToast("匯入成功")
-        }
+        showChooseDialogVC(title: .downLoadToApp)
     }
     
     @objc private func killKeyboard() {
@@ -173,5 +195,40 @@ extension NewPhotoVC: UITextViewDelegate {
 extension NewPhotoVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return true
+    }
+}
+
+extension NewPhotoVC: ChooseDialogVCDelegate {
+    func confirmClickWith(title: Titles) {
+        removePresented() {
+            switch title {
+            case .downLoadToApp:
+                let mainQueue = DispatchQueue.main
+                let secQueue = DispatchQueue.global()
+                let groupQueue = DispatchGroup()
+                
+                for list in self.messageData {
+                    secQueue.async(group: groupQueue) {
+                        let detail = photoDataInfo(type: list.type, previewImageUrl: list.previewImageUrl, originalContentUrl: list.originalContentUrl, image: self.typeChange(urlStr: list.previewImageUrl), video: list.type == "image" ? Data() : self.typeChange(urlStr: list.originalContentUrl))
+                        self.photoData.append(detail)
+                    }
+                }
+                groupQueue.notify(queue: mainQueue) {
+                    UserDefaultManager.setPhoto(self.photoData)
+                    self.view.makeToast("匯入成功")
+                }
+                
+            case .removeSearch:
+                self.textView.text = ""
+                self.view_cross.isHidden = true
+                self.label_placeHolder.isHidden = false
+                self.view_image.isHidden = true
+                self.pageControl.isHidden = true
+                self.view_action.isHidden = true
+                
+            default:
+                break
+            }
+        }
     }
 }
