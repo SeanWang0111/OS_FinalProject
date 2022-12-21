@@ -17,14 +17,29 @@ class AlbumMainVC: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
+    @IBOutlet var stackView_menu: UIStackView!
+    @IBOutlet var view_newFolder: UIView!
+    
+    private var albumData = UserDefaultManager.getAlbum()
+    
     private var isRemove: Bool = false { didSet {
         label_edit.text = isRemove ? "完成" : "設定"
         collectionView.reloadData()
+        stackView_menu.isHidden = !isRemove
     }}
     
     override func viewDidLoad() {
         super.viewDidLoad()
         componentsInit()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let parentVC = parent as? ViewController
+        parentVC?.useCollection(isUse: true)
+        albumData = UserDefaultManager.getAlbum()
+        collectionView.reloadData()
     }
     
     private func componentsInit() {
@@ -41,6 +56,8 @@ class AlbumMainVC: UIViewController {
         view_title.layer.insertSublayer(gradient, at: 0)
         
         view_edit.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editTapped)))
+        
+        stackView_menu.layer.maskedCorners = [.layerMinXMinYCorner]
     }
     
     private func collectionViewInit() {
@@ -52,17 +69,30 @@ class AlbumMainVC: UIViewController {
     
     @objc private func editTapped() {
         isRemove.toggle()
+        let parentVC = parent as? ViewController
+        parentVC?.useCollection(isUse: !isRemove)
     }
 }
 
 extension AlbumMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return albumData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AlbumCollectionViewCell else { return AlbumCollectionViewCell() }
-        cell.setCell(isRemove: isRemove)
+        cell.setCell(data: albumData[indexPath.row], isRemove: isRemove)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isRemove {
+            guard albumData.indices.contains(indexPath.row) else { return }
+            albumData.remove(at: indexPath.row)
+            UserDefaultManager.setAlbum(albumData)
+            editTapped()
+        } else {
+            view.makeToast("打開")
+        }
     }
 }

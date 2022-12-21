@@ -442,7 +442,7 @@
                                         <rect key="frame" x="310" y="15" width="60" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="設定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkh-D0-4Di">
-                                                <rect key="frame" x="13.666666666666686" y="5" width="33" height="20"/>
+                                                <rect key="frame" x="13.666666666666686" y="5.3333333333333286" width="32.666666666666664" height="19.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <color key="textColor" name="blue_0A84FF"/>
                                                 <nil key="highlightedColor"/>
@@ -491,11 +491,44 @@
                                     <outlet property="delegate" destination="dAm-l3-5e7" id="2a4-iM-G2L"/>
                                 </connections>
                             </collectionView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="R7h-Sq-OTd">
+                                <rect key="frame" x="330" y="598" width="60" height="60"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utn-dE-nyR" userLabel="View New Folder">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zUb-uG-35o">
+                                                <rect key="frame" x="10" y="11.333333333333332" width="41.333333333333329" height="37.333333333333343"/>
+                                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="GYl-C0-S3z"/>
+                                                    <constraint firstAttribute="width" secondItem="zUb-uG-35o" secondAttribute="height" multiplier="1:1" id="mPa-3Z-YNK"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="zUb-uG-35o" firstAttribute="centerY" secondItem="Utn-dE-nyR" secondAttribute="centerY" id="8Bu-Ui-UwZ"/>
+                                            <constraint firstAttribute="width" constant="60" id="J6N-sl-Nrk"/>
+                                            <constraint firstAttribute="height" constant="60" id="OpG-u1-maG"/>
+                                            <constraint firstItem="zUb-uG-35o" firstAttribute="centerX" secondItem="Utn-dE-nyR" secondAttribute="centerX" id="TDf-OE-LS6"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="black_000000_50"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gfZ-oD-1rg"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="gfZ-oD-1rg" firstAttribute="trailing" secondItem="R7h-Sq-OTd" secondAttribute="trailing" id="4HE-eA-JhB"/>
                             <constraint firstItem="gfZ-oD-1rg" firstAttribute="trailing" secondItem="rFf-LW-VPj" secondAttribute="trailing" constant="15" id="Plh-xm-cTm"/>
+                            <constraint firstItem="gfZ-oD-1rg" firstAttribute="bottom" secondItem="R7h-Sq-OTd" secondAttribute="bottom" id="aMt-UK-aql"/>
                             <constraint firstItem="BOl-8a-7vp" firstAttribute="trailing" secondItem="gfZ-oD-1rg" secondAttribute="trailing" id="jcc-ph-WJW"/>
                             <constraint firstItem="rFf-LW-VPj" firstAttribute="leading" secondItem="gfZ-oD-1rg" secondAttribute="leading" constant="15" id="oHI-5x-rQD"/>
                             <constraint firstItem="BOl-8a-7vp" firstAttribute="leading" secondItem="gfZ-oD-1rg" secondAttribute="leading" id="q5P-Lu-M7w"/>
@@ -508,7 +541,9 @@
                         <outlet property="collectionView" destination="rFf-LW-VPj" id="Dut-ao-XPh"/>
                         <outlet property="collectionView_flowLayout" destination="79X-sU-VbI" id="s4t-o0-nMI"/>
                         <outlet property="label_edit" destination="jkh-D0-4Di" id="ces-HW-gzU"/>
+                        <outlet property="stackView_menu" destination="R7h-Sq-OTd" id="c2g-y1-NY7"/>
                         <outlet property="view_edit" destination="djM-Uo-RLx" id="c4O-cK-K8f"/>
+                        <outlet property="view_newFolder" destination="Utn-dE-nyR" id="3AP-mX-rX7"/>
                         <outlet property="view_title" destination="BOl-8a-7vp" id="Y0n-hp-2me"/>
                     </connections>
                 </viewController>

@@ -13,7 +13,7 @@ class ViewController: NotificationVC {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
-    private var barCount: Int = 3
+    private var barCount: Int = 2
     
     static var selectIndex: Int = 0
     

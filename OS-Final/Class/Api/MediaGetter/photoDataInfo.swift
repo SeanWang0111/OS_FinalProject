@@ -8,6 +8,7 @@
 import Foundation
 
 class photoDataInfo: Codable {
+    
     var type: String
     var previewImageUrl: String
     var originalContentUrl: String

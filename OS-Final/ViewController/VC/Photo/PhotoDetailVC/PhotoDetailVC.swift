@@ -166,6 +166,12 @@ class PhotoDetailVC: UIViewController {
         isPlay = false
         
         guard photoData[index].type == "video" else { return }
+        // 應急 擋住多餘的影片
+        let blackView = UIView()
+        blackView.backgroundColor = .black
+        blackView.frame = CGRect(x: 0, y: 0, width: view_player.bounds.width, height: view_player.bounds.height)
+        view_player.addSubview(blackView)
+        
         let remoteURL = NSURL(string: photoData[index].originalContentUrl)
         self.player = AVPlayer(url: remoteURL! as URL)
         let layer = AVPlayerLayer(player: self.player)

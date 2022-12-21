@@ -46,6 +46,10 @@ class PhotoMainVC: NotificationVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isChoose = false
+        choosePhoto.removeAll()
+        let parentVC = parent as? ViewController
+        parentVC?.useCollection(isUse: true)
         photoData = UserDefaultManager.getPhoto()
         collectionView.reloadData()
     }
@@ -151,6 +155,11 @@ class PhotoMainVC: NotificationVC {
             view.makeToast("尚未選擇")
             return
         }
+        var newAlbum = [photoDataInfo]()
+        for index in choosePhoto {
+            newAlbum.append(photoData[index])
+        }
+        navigationController?.pushViewController(NewAlbumVC(mode: .new, photoData: newAlbum), animated: true)
     }
     
     @objc private func downLoadTapped() {

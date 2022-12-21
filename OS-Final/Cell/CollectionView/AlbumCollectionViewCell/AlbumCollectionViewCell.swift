@@ -24,15 +24,16 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         componentsInit()
     }
     
-    func setCell(isRemove: Bool) {
+    func setCell(data: albumDataInfo, isRemove: Bool) {
+        imageView_cover.image = UIImage(data: data.image)
+        label_albumName.text = data.title
+        label_albumCount.text = "\(data.total)"
+        
         view_gray.isHidden = !isRemove
         imageView_remove.isHidden = !isRemove
     }
     
     private func componentsInit() {
         imageView_cover_height.constant = AppWidth / 2 - 15 - 10 - 10
-        
-        guard let url = URL(string: "https://itutbox.s3.amazonaws.com/picture/production/2457A79A-46E3-4A76-8EB4-EE480CCB2A03.jpg") else { return }
-        imageView_cover.sd_setImage(with: url)
     }
 }
