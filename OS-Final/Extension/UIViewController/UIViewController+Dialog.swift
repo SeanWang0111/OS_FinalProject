@@ -23,6 +23,12 @@ extension UIViewController {
         VC.dialogShow(vc: self)
     }
     
+    func showListDialog(albumData: [albumDataInfo]) {
+        let VC = ListDialogVC(albumData: albumData)
+        VC.delegate = self as? ListDialogVCDelegate
+        VC.dialogShow(vc: self)
+    }
+    
     // MARK: -- Universal --
     func removePresented(animator: Animator = .enlarge, completion: (() -> Void)? = nil) {
         guard let presented = self.presentedViewController else { return }

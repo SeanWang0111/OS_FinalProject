@@ -14,6 +14,8 @@ class ViewController: NotificationVC {
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
     private var barCount: Int = 2
+    private var firstReload: Bool = false   // 介面一刷新
+    private var secondReload: Bool = false  // 介面二刷新
     
     static var selectIndex: Int = 0
     
@@ -27,6 +29,11 @@ class ViewController: NotificationVC {
         
         let isRootVC: Bool = (navigationController?.viewControllers.last is ViewController)
         navigationController?.setNavigationBarHidden(isRootVC, animated: false)
+    }
+    
+    override func updateData() {
+        guard let VC = children[ViewController.selectIndex] as? NotificationVC else { return }
+        VC.updateData()
     }
     
     private func componentsInit() {
@@ -43,6 +50,16 @@ class ViewController: NotificationVC {
     private func setPageView(page: Int, animated: Bool) {
         ViewController.selectIndex = page
         collectionView.reloadData()
+        
+        /// 介面刷新
+        if firstReload, page == 0 {
+            firstReload = false
+            updateData()
+        }
+        if secondReload, page == 1 {
+            secondReload = false
+            updateData()
+        }
         UIView.setAnimationsEnabled(animated)
     }
     
@@ -51,6 +68,11 @@ class ViewController: NotificationVC {
             self.scrollView.setContentOffset(CGPoint(x: CGFloat(page) * AppWidth, y: 0), animated: animated)
             self.setPageView(page: page, animated: animated)
         }
+    }
+    
+    internal func ReloadData() {
+        firstReload = true
+        secondReload = true
     }
     
     /// 當各介面在執行功能，可保險鎖住根目錄。

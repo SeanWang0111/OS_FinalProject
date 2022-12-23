@@ -65,6 +65,9 @@ class NotificationVC: UIViewController {
         
     }
     
+    func updateData() {
+    }
+    
     /// API監聽處理
     @objc func APINotificationReceiver(notification: NSNotification) {
         DispatchQueue.main.async {

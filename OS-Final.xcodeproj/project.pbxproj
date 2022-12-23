@@ -19,6 +19,10 @@
 		8C0CA6042944840D0095AB57 /* NewPhotoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0CA6022944840D0095AB57 /* NewPhotoVC.xib */; };
 		8C116D9729531763009D9D56 /* UIBarButtonItem+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C116D9629531763009D9D56 /* UIBarButtonItem+.swift */; };
 		8C116D9929531B6C009D9D56 /* albumDataInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C116D9829531B6C009D9D56 /* albumDataInfo.swift */; };
+		8C116D9F2953305F009D9D56 /* ListDialogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C116D9D2953305F009D9D56 /* ListDialogVC.swift */; };
+		8C116DA02953305F009D9D56 /* ListDialogVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C116D9E2953305F009D9D56 /* ListDialogVC.xib */; };
+		8C116DA5295336AF009D9D56 /* ListDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C116DA3295336AF009D9D56 /* ListDetailTableViewCell.swift */; };
+		8C116DA6295336AF009D9D56 /* ListDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C116DA4295336AF009D9D56 /* ListDetailTableViewCell.xib */; };
 		8C1BDA82293F62F300176BED /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1BDA80293F62F300176BED /* PhotoCollectionViewCell.swift */; };
 		8C1BDA83293F62F300176BED /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C1BDA81293F62F300176BED /* PhotoCollectionViewCell.xib */; };
 		8C4E94C12930CFDF007591E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E94C02930CFDF007591E6 /* AppDelegate.swift */; };
@@ -90,6 +94,10 @@
 		8C0CA6022944840D0095AB57 /* NewPhotoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPhotoVC.xib; sourceTree = "<group>"; };
 		8C116D9629531763009D9D56 /* UIBarButtonItem+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+.swift"; sourceTree = "<group>"; };
 		8C116D9829531B6C009D9D56 /* albumDataInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = albumDataInfo.swift; sourceTree = "<group>"; };
+		8C116D9D2953305F009D9D56 /* ListDialogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDialogVC.swift; sourceTree = "<group>"; };
+		8C116D9E2953305F009D9D56 /* ListDialogVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListDialogVC.xib; sourceTree = "<group>"; };
+		8C116DA3295336AF009D9D56 /* ListDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailTableViewCell.swift; sourceTree = "<group>"; };
+		8C116DA4295336AF009D9D56 /* ListDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListDetailTableViewCell.xib; sourceTree = "<group>"; };
 		8C1BDA80293F62F300176BED /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8C1BDA81293F62F300176BED /* PhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		8C4E94BD2930CFDF007591E6 /* OS-Final.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OS-Final.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				8C7951E2295082C800D70E56 /* ChooseDialogVC */,
+				8C116D9A29533034009D9D56 /* ListDialogVC */,
 			);
 			path = DialogVC;
 			sourceTree = "<group>";
@@ -235,6 +244,32 @@
 				8C116D9629531763009D9D56 /* UIBarButtonItem+.swift */,
 			);
 			path = UIButton;
+			sourceTree = "<group>";
+		};
+		8C116D9A29533034009D9D56 /* ListDialogVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C116D9D2953305F009D9D56 /* ListDialogVC.swift */,
+				8C116D9E2953305F009D9D56 /* ListDialogVC.xib */,
+			);
+			path = ListDialogVC;
+			sourceTree = "<group>";
+		};
+		8C116DA129533663009D9D56 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				8C116DA22953366F009D9D56 /* ListDetailTableViewCell */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		8C116DA22953366F009D9D56 /* ListDetailTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8C116DA3295336AF009D9D56 /* ListDetailTableViewCell.swift */,
+				8C116DA4295336AF009D9D56 /* ListDetailTableViewCell.xib */,
+			);
+			path = ListDetailTableViewCell;
 			sourceTree = "<group>";
 		};
 		8C1BDA7F293F62C200176BED /* PhotoCollectionViewCell */ = {
@@ -333,6 +368,7 @@
 		8C810AD62930DC11004E5347 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				8C116DA129533663009D9D56 /* TableView */,
 				8C810AD72930DC30004E5347 /* CollectionView */,
 			);
 			path = Cell;
@@ -625,7 +661,9 @@
 				8C08865B2949F7F0008F6620 /* PhotoDetailVC.xib in Resources */,
 				8CB1D6742951AF9B006B6E5B /* NewAlbumVC.xib in Resources */,
 				8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */,
+				8C116DA6295336AF009D9D56 /* ListDetailTableViewCell.xib in Resources */,
 				8C4E94C82930CFDF007591E6 /* Main.storyboard in Resources */,
+				8C116DA02953305F009D9D56 /* ListDialogVC.xib in Resources */,
 				8C7951DD294DBCA100D70E56 /* loading.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -772,6 +810,7 @@
 				8C0CA6032944840D0095AB57 /* NewPhotoVC.swift in Sources */,
 				8C08865A2949F7F0008F6620 /* PhotoDetailVC.swift in Sources */,
 				8C116D9929531B6C009D9D56 /* albumDataInfo.swift in Sources */,
+				8C116D9F2953305F009D9D56 /* ListDialogVC.swift in Sources */,
 				8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */,
 				8CFE2BEC294347A100398413 /* ApiManager.swift in Sources */,
 				8C551BA7293F406700516302 /* SwiftHeader.swift in Sources */,
@@ -782,6 +821,7 @@
 				8CFE2BF52944770500398413 /* MediaGetterRes.swift in Sources */,
 				8C08865029472621008F6620 /* UserDefaultManager.swift in Sources */,
 				8C0886522947463A008F6620 /* photoDataInfo.swift in Sources */,
+				8C116DA5295336AF009D9D56 /* ListDetailTableViewCell.swift in Sources */,
 				8CA3BC17293F29BF00B029C7 /* UIColor+.swift in Sources */,
 				8CFE2BE82943301F00398413 /* NotificationVC.swift in Sources */,
 				8CFE2BEE2943495D00398413 /* KeyManager.swift in Sources */,

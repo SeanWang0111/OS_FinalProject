@@ -38,6 +38,8 @@ class PhotoMainVC: NotificationVC {
     
     private var choosePhoto = [Int]()
     private var photoData = UserDefaultManager.getPhoto()
+    private var albumData = UserDefaultManager.getAlbum()
+    private var isNeedReload: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +48,24 @@ class PhotoMainVC: NotificationVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        isChoose = false
+        if isNeedReload {
+            isNeedReload = false
+            let parentVC = parent as? ViewController
+            parentVC?.ReloadData()
+        }
+        // 看內容 新增刷新
+        guard !isChoose else { return }
         choosePhoto.removeAll()
         let parentVC = parent as? ViewController
         parentVC?.useCollection(isUse: true)
+        photoData = UserDefaultManager.getPhoto()
+        collectionView.reloadData()
+    }
+    
+    override func updateData() {
+        isChoose = false
+        choosePhoto.removeAll()
+        albumData = UserDefaultManager.getAlbum()
         photoData = UserDefaultManager.getPhoto()
         collectionView.reloadData()
     }
@@ -155,11 +171,7 @@ class PhotoMainVC: NotificationVC {
             view.makeToast("尚未選擇")
             return
         }
-        var newAlbum = [photoDataInfo]()
-        for index in choosePhoto {
-            newAlbum.append(photoData[index])
-        }
-        navigationController?.pushViewController(NewAlbumVC(mode: .new, photoData: newAlbum), animated: true)
+        showListDialog(albumData: albumData)
     }
     
     @objc private func downLoadTapped() {
@@ -215,7 +227,9 @@ extension PhotoMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             if indexPath.row >= photoData.count {
                 navigationController?.pushViewController(NewPhotoVC(), animated: true)
             } else {
-                navigationController?.pushViewController(PhotoDetailVC(photoData: photoData, index: indexPath.row), animated: true)
+                let VC = PhotoDetailVC(photoData: photoData, index: indexPath.row)
+                VC.delegate = self
+                navigationController?.pushViewController(VC, animated: true)
             }
         }
     }
@@ -223,15 +237,15 @@ extension PhotoMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
 
 extension PhotoMainVC: ChooseDialogVCDelegate {
     func confirmClickWith(title: Titles) {
-        removePresented() {
+        removePresented() { [self] in
             switch title {
             case .downLoadToAlbum:
-                self.view_loading.isHidden = false
-                self.label_loading.text = "0 / \(self.choosePhoto.count)"
-                self.progressRing_Loading.value = 0
-                self.progressRing_Loading.maxValue = CGFloat(self.choosePhoto.count)
-                self.imageView_loading.image = SDAnimatedImage(named: "loading.gif")
-                self.imageView_loading.startAnimating()
+                view_loading.isHidden = false
+                label_loading.text = "0 / \(choosePhoto.count)"
+                progressRing_Loading.value = 0
+                progressRing_Loading.maxValue = CGFloat(choosePhoto.count)
+                imageView_loading.image = SDAnimatedImage(named: "loading.gif")
+                imageView_loading.startAnimating()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
                     self.downLoadPhoto(photoIndex: 0)
@@ -239,20 +253,54 @@ extension PhotoMainVC: ChooseDialogVCDelegate {
                 
             case .removePhoto:
                 // 從陣列最後往前刪除 不用擔心位置不一樣
-                self.choosePhoto.sort(by: >)
+                choosePhoto.sort(by: >)
                 
                 for i in 0..<self.choosePhoto.count {
-                    self.photoData.remove(at: self.choosePhoto[i])
+                    photoData.remove(at: choosePhoto[i])
                 }
                 
-                UserDefaultManager.setPhoto(self.photoData)
-                self.view.makeToast("刪除成功")
-                self.chooseTapped()
-                self.collectionView.reloadData()
+                UserDefaultManager.setPhoto(photoData)
+                view.makeToast("刪除成功")
+                chooseTapped()
+                collectionView.reloadData()
                 
             default:
                 break
             }
         }
+    }
+}
+
+extension PhotoMainVC: ListDialogVCDelegate {
+    func listDidClick(index: Int) {
+        removePresented() { [self] in
+            var newPhotoArr = [photoDataInfo]()
+            for index in choosePhoto {
+                newPhotoArr.append(photoData[index])
+            }
+            let parentVC = parent as? ViewController
+            parentVC?.ReloadData()
+            
+            if albumData.indices.contains(index) {
+                // 匯入已有的相簿
+                albumData[index].photoData.append(contentsOf: newPhotoArr)
+                albumData[index].total = albumData[index].photoData.count
+                UserDefaultManager.setAlbum(albumData)
+                view.makeToast("匯入完成")
+                chooseTapped()
+                collectionView.reloadData()
+                
+            } else {
+                // 新增相簿
+                isChoose = false
+                navigationController?.pushViewController(NewAlbumVC(mode: .new, photoData: newPhotoArr), animated: true)
+            }
+        }
+    }
+}
+
+extension PhotoMainVC: PhotoDetailVCDelegate {
+    func needReload() {
+        isNeedReload = true
     }
 }

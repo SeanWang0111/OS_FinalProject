@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlbumMainVC: UIViewController {
+class AlbumMainVC: NotificationVC {
     
     @IBOutlet var view_title: UIView!
     
@@ -21,6 +21,7 @@ class AlbumMainVC: UIViewController {
     @IBOutlet var view_newFolder: UIView!
     
     private var albumData = UserDefaultManager.getAlbum()
+    private var selectIndex: Int = 0
     
     private var isRemove: Bool = false { didSet {
         label_edit.text = isRemove ? "完成" : "設定"
@@ -35,9 +36,16 @@ class AlbumMainVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let parentVC = parent as? ViewController
-        parentVC?.useCollection(isUse: true)
+        // 暫定新增要更新
+        let newAlbum = UserDefaultManager.getAlbum()
+        if newAlbum.count != albumData.count {
+            albumData = UserDefaultManager.getAlbum()
+            collectionView.reloadData()
+        }
+    }
+    
+    override func updateData() {
+        isRemove = false
         albumData = UserDefaultManager.getAlbum()
         collectionView.reloadData()
     }
@@ -87,12 +95,32 @@ extension AlbumMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if isRemove {
-            guard albumData.indices.contains(indexPath.row) else { return }
-            albumData.remove(at: indexPath.row)
-            UserDefaultManager.setAlbum(albumData)
-            editTapped()
+            selectIndex = indexPath.row
+            showChooseDialogVC(title: .removePhoto)
         } else {
             view.makeToast("打開")
+        }
+    }
+}
+
+extension AlbumMainVC: ChooseDialogVCDelegate {
+    func confirmClickWith(title: Titles) {
+        removePresented() { [self] in
+            switch title {
+            case .removePhoto:
+                guard albumData.indices.contains(selectIndex) else { return }
+                albumData.remove(at: selectIndex)
+                selectIndex = 0
+                UserDefaultManager.setAlbum(albumData)
+                editTapped()
+                
+                let parentVC = parent as? ViewController
+                parentVC?.ReloadData()
+                view.makeToast("刪除成功")
+                
+            default:
+                break
+            }
         }
     }
 }

@@ -9,6 +9,10 @@ import UIKit
 import AVFoundation
 import Photos
 
+protocol PhotoDetailVCDelegate: AnyObject {
+    func needReload()
+}
+
 class PhotoDetailVC: UIViewController {
     
     @IBOutlet var scrollView: UIScrollView!
@@ -41,8 +45,10 @@ class PhotoDetailVC: UIViewController {
     @IBOutlet var view_bottom: UIView!
     
     private var photoData = [photoDataInfo]()
-    private var index: Int = 0
+    private var albumData = UserDefaultManager.getAlbum()
+    private var photoIndex: Int = 0
     private var mode: Mode = .photo
+    private var isReloadData: Bool = false
     
     private var isHiddenBar: Bool = false { didSet {
         view_top.isHidden = isHiddenBar
@@ -56,6 +62,8 @@ class PhotoDetailVC: UIViewController {
     private var isFirstPlay: Bool = true
     private var isPlay: Bool = false
     
+    weak var delegate: PhotoDetailVCDelegate?
+    
     enum Mode {
         case photo
         case album
@@ -64,7 +72,7 @@ class PhotoDetailVC: UIViewController {
     convenience init(photoData: [photoDataInfo], index: Int) {
         self.init()
         self.photoData = photoData
-        self.index = index
+        photoIndex = index
     }
     
     override func viewDidLoad() {
@@ -91,14 +99,15 @@ class PhotoDetailVC: UIViewController {
         view_back.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backTapped)))
         view_photo2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hiddenTapped)))
         
+        view_newFolder.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(newFolderTapped)))
         view_play.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(videoPlayTapped)))
         view_downLoad.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(downLoadTapped)))
         view_trash.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(trashTapped)))
     }
     
     private func imageInit() {
-        let frontIndex: Int = index - 1 < 0 ? photoData.count - 1 : index - 1
-        let nextIndex: Int = index + 1 >= photoData.count ? 0 : index + 1
+        let frontIndex: Int = photoIndex - 1 < 0 ? photoData.count - 1 : photoIndex - 1
+        let nextIndex: Int = photoIndex + 1 >= photoData.count ? 0 : photoIndex + 1
         
         if let image = UIImage(data: photoData[frontIndex].image) {
             imageView_photo1.image = image
@@ -106,10 +115,10 @@ class PhotoDetailVC: UIViewController {
             imageView_photo1.sd_setImage(with: URL(string: photoData[frontIndex].previewImageUrl))
         }
         
-        if let image = UIImage(data: photoData[index].image) {
+        if let image = UIImage(data: photoData[photoIndex].image) {
             imageView_photo2.image = image
         } else {
-            imageView_photo2.sd_setImage(with: URL(string: photoData[index].previewImageUrl))
+            imageView_photo2.sd_setImage(with: URL(string: photoData[photoIndex].previewImageUrl))
         }
         
         if let image = UIImage(data: photoData[nextIndex].image) {
@@ -121,8 +130,8 @@ class PhotoDetailVC: UIViewController {
     
     // 預覽圖片設定
     private func presetImageInit() {
-        let frontIndex: Int = index - 1 < 0 ? photoData.count - 1 : index - 1
-        let nextIndex: Int = index + 1 >= photoData.count ? 0 : index + 1
+        let frontIndex: Int = photoIndex - 1 < 0 ? photoData.count - 1 : photoIndex - 1
+        let nextIndex: Int = photoIndex + 1 >= photoData.count ? 0 : photoIndex + 1
         
         if let image = UIImage(data: photoData[frontIndex].image) {
             imageView_preset1.image = image
@@ -140,7 +149,7 @@ class PhotoDetailVC: UIViewController {
     // 設定選單
     private func setMenu() {
         view_newFolder.isHidden = mode == .album
-        view_play.isHidden = photoData[index].type == "image"
+        view_play.isHidden = photoData[photoIndex].type == "image"
     }
     
     private func setScroll() {
@@ -165,14 +174,14 @@ class PhotoDetailVC: UIViewController {
         isFirstPlay = true
         isPlay = false
         
-        guard photoData[index].type == "video" else { return }
+        guard photoData[photoIndex].type == "video" else { return }
         // 應急 擋住多餘的影片
         let blackView = UIView()
         blackView.backgroundColor = .black
         blackView.frame = CGRect(x: 0, y: 0, width: view_player.bounds.width, height: view_player.bounds.height)
         view_player.addSubview(blackView)
         
-        let remoteURL = NSURL(string: photoData[index].originalContentUrl)
+        let remoteURL = NSURL(string: photoData[photoIndex].originalContentUrl)
         self.player = AVPlayer(url: remoteURL! as URL)
         let layer = AVPlayerLayer(player: self.player)
         layer.frame = view_player.bounds
@@ -184,6 +193,10 @@ class PhotoDetailVC: UIViewController {
         stackView_preset.isHidden = false
         imageView_preset1.isHidden = isLeft
         imageView_preset2.isHidden = !isLeft
+    }
+    
+    @objc private func newFolderTapped() {
+        showListDialog(albumData: albumData)
     }
     
     @objc private func videoPlayTapped() {
@@ -205,8 +218,8 @@ class PhotoDetailVC: UIViewController {
     
     @objc private func downLoadTapped() {
         // 圖片
-        if photoData[index].type == "image" {
-            if let image: UIImage = UIImage(data: photoData[index].image) {
+        if photoData[photoIndex].type == "image" {
+            if let image: UIImage = UIImage(data: photoData[photoIndex].image) {
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
                 view.makeToast("下載成功")
             } else {
@@ -219,7 +232,7 @@ class PhotoDetailVC: UIViewController {
             let filePath: String = "\(galleryPath)/nameX.mp4"
             
             DispatchQueue.main.async {
-                let urlData: NSData = NSData(data: self.photoData[self.index].video)
+                let urlData: NSData = NSData(data: self.photoData[self.photoIndex].video)
                 urlData.write(toFile: filePath, atomically: true)
                 PHPhotoLibrary.shared().performChanges({
                     PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: filePath))
@@ -233,7 +246,7 @@ class PhotoDetailVC: UIViewController {
     }
     
     @objc private func trashTapped() {
-        photoData.remove(at: index)
+        photoData.remove(at: photoIndex)
         UserDefaultManager.setPhoto(photoData)
         view.makeToast("刪除成功")
         
@@ -242,7 +255,7 @@ class PhotoDetailVC: UIViewController {
             return
         }
         
-        index = index != 0 ? index - 1 : 0
+        photoIndex = photoIndex != 0 ? photoIndex - 1 : 0
         componentsInit()
     }
     
@@ -260,13 +273,34 @@ extension PhotoDetailVC: UIScrollViewDelegate {
         let pageWidth: CGFloat = scrollView.frameLayoutGuide.layoutFrame.size.width
         let currentPage: CGFloat = scrollView.contentOffset.x / pageWidth
         if currentPage == 0 {
-            index = index - 1 < 0 ? photoData.count - 1 : index - 1
+            photoIndex = photoIndex - 1 < 0 ? photoData.count - 1 : photoIndex - 1
             setPreset(isLeft: false)
             switchInit()
         } else if currentPage == 2 {
-            index = index + 1 >= photoData.count ? 0 : index + 1
+            photoIndex = photoIndex + 1 >= photoData.count ? 0 : photoIndex + 1
             setPreset(isLeft: true)
             switchInit()
         }
     }
 }
+
+extension PhotoDetailVC: ListDialogVCDelegate {
+    func listDidClick(index: Int) {
+        removePresented() { [self] in
+            delegate?.needReload()
+            
+            if albumData.indices.contains(index) {
+                // 匯入已有的相簿
+                albumData[index].photoData.append(contentsOf: [photoData[photoIndex]])
+                albumData[index].total = albumData[index].photoData.count
+                UserDefaultManager.setAlbum(albumData)
+                view.makeToast("匯入完成")
+                
+            } else {
+                // 新增相簿
+                navigationController?.pushViewController(NewAlbumVC(mode: .new, photoData: [photoData[photoIndex]]), animated: true)
+            }
+        }
+    }
+}
+
