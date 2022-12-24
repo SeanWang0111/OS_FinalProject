@@ -20,6 +20,8 @@ class PhotoMainVC: NotificationVC {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
+    @IBOutlet var view_selectTotal: UILabel!
+    
     @IBOutlet var stackView_menu: UIStackView!
     @IBOutlet var view_newFolder: UIView!
     @IBOutlet var view_downLoad: UIView!
@@ -36,7 +38,9 @@ class PhotoMainVC: NotificationVC {
         stackView_menu.isHidden = !isChoose
     }}
     
-    private var choosePhoto = [Int]()
+    private var choosePhoto = [Int]() { didSet {
+        view_selectTotal.text = "已選取 \(choosePhoto.count)"
+    }}
     private var photoData = UserDefaultManager.getPhoto()
     private var albumData = UserDefaultManager.getAlbum()
     private var isNeedReload: Bool = false
@@ -199,7 +203,12 @@ extension PhotoMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? PhotoCollectionViewCell else { return PhotoCollectionViewCell() }
         if !photoData.isEmpty, indexPath.row < photoData.count {
-            cell.setCell(data: photoData[indexPath.row], isPlus: false)
+            var isTag: Bool = false
+            for i in 0..<choosePhoto.count where choosePhoto[i] == indexPath.row {
+                isTag = true
+                break
+            }
+            cell.setCell(data: photoData[indexPath.row], isPlus: false, isTag: isTag)
         } else {
             cell.setCell(urlStr: "", isPlus: true)
         }
@@ -214,15 +223,14 @@ extension PhotoMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             for i in 0..<choosePhoto.count where choosePhoto[i] == indexPath.row {
                 isTag = true
                 choosePhoto.remove(at: i)
-                cell?.tagPhoto(isTag: false)
+                cell?.setCell(data: photoData[indexPath.row], isPlus: false, isTag: false)
                 break
             }
             
             if !isTag {
                 choosePhoto.append(indexPath.row)
-                cell?.tagPhoto(isTag: true)
+                cell?.setCell(data: photoData[indexPath.row], isPlus: false, isTag: true)
             }
-            
         } else {
             if indexPath.row >= photoData.count {
                 navigationController?.pushViewController(NewPhotoVC(), animated: true)

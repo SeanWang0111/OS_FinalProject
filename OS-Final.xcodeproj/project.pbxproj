@@ -52,6 +52,8 @@
 		8CB1D6732951AF9B006B6E5B /* NewAlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1D6712951AF9B006B6E5B /* NewAlbumVC.swift */; };
 		8CB1D6742951AF9B006B6E5B /* NewAlbumVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB1D6722951AF9B006B6E5B /* NewAlbumVC.xib */; };
 		8CC5D0B9293E12380063D262 /* PhotoMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */; };
+		8CCEAD4D2955C0C100A24A42 /* AlbumDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEAD4B2955C0C100A24A42 /* AlbumDetailVC.swift */; };
+		8CCEAD4E2955C0C100A24A42 /* AlbumDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCEAD4C2955C0C100A24A42 /* AlbumDetailVC.xib */; };
 		8CE8F969294707740098E480 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE8F968294707740098E480 /* UIApplication+.swift */; };
 		8CFE2BE82943301F00398413 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFE2BE72943301F00398413 /* NotificationVC.swift */; };
 		8CFE2BEC294347A100398413 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFE2BEB294347A100398413 /* ApiManager.swift */; };
@@ -131,6 +133,8 @@
 		8CB1D6712951AF9B006B6E5B /* NewAlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlbumVC.swift; sourceTree = "<group>"; };
 		8CB1D6722951AF9B006B6E5B /* NewAlbumVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAlbumVC.xib; sourceTree = "<group>"; };
 		8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMainVC.swift; sourceTree = "<group>"; };
+		8CCEAD4B2955C0C100A24A42 /* AlbumDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailVC.swift; sourceTree = "<group>"; };
+		8CCEAD4C2955C0C100A24A42 /* AlbumDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumDetailVC.xib; sourceTree = "<group>"; };
 		8CE8F968294707740098E480 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		8CFE2BE72943301F00398413 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		8CFE2BEB294347A100398413 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
@@ -443,6 +447,7 @@
 		8CB1D66F2951AF1F006B6E5B /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				8CCEAD4A2955C08B00A24A42 /* AlbumDetailVC */,
 				8CB1D6702951AF3C006B6E5B /* NewAlbumVC */,
 			);
 			path = Album;
@@ -464,6 +469,15 @@
 				8CFE2BF9294482B200398413 /* VC */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		8CCEAD4A2955C08B00A24A42 /* AlbumDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				8CCEAD4B2955C0C100A24A42 /* AlbumDetailVC.swift */,
+				8CCEAD4C2955C0C100A24A42 /* AlbumDetailVC.xib */,
+			);
+			path = AlbumDetailVC;
 			sourceTree = "<group>";
 		};
 		8CE8F967294707660098E480 /* UIApplication */ = {
@@ -659,6 +673,7 @@
 				8CA3BC23293F377D00B029C7 /* AlbumCollectionViewCell.xib in Resources */,
 				8C1BDA83293F62F300176BED /* PhotoCollectionViewCell.xib in Resources */,
 				8C08865B2949F7F0008F6620 /* PhotoDetailVC.xib in Resources */,
+				8CCEAD4E2955C0C100A24A42 /* AlbumDetailVC.xib in Resources */,
 				8CB1D6742951AF9B006B6E5B /* NewAlbumVC.xib in Resources */,
 				8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */,
 				8C116DA6295336AF009D9D56 /* ListDetailTableViewCell.xib in Resources */,
@@ -813,6 +828,7 @@
 				8C116D9F2953305F009D9D56 /* ListDialogVC.swift in Sources */,
 				8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */,
 				8CFE2BEC294347A100398413 /* ApiManager.swift in Sources */,
+				8CCEAD4D2955C0C100A24A42 /* AlbumDetailVC.swift in Sources */,
 				8C551BA7293F406700516302 /* SwiftHeader.swift in Sources */,
 				8CA3BC1E293F2FF300B029C7 /* UIView+layout.swift in Sources */,
 				8CA3BC1B293F2EAA00B029C7 /* SettingMainVC.swift in Sources */,

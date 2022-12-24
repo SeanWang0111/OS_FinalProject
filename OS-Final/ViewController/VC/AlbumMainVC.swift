@@ -98,7 +98,7 @@ extension AlbumMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
             selectIndex = indexPath.row
             showChooseDialogVC(title: .removePhoto)
         } else {
-            view.makeToast("打開")
+            navigationController?.pushViewController(AlbumDetailVC(albumData: albumData[indexPath.row]), animated: true)
         }
     }
 }

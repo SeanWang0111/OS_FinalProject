@@ -33,21 +33,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView_photo.sd_setImage(with: URL(string: urlStr))
     }
     
-    func setCell(data: photoDataInfo, isPlus: Bool) {
+    func setCell(data: photoDataInfo, isPlus: Bool, isTag: Bool = false) {
         view_image.isHidden = isPlus
         view_plus.isHidden = !isPlus
         view_check.isHidden = true
         imageView_video.isHidden = data.type == "image"
+        view_check.isHidden = !isTag
         
         if let image = UIImage(data: data.image) {
             imageView_photo.image = image
         } else {
             imageView_photo.sd_setImage(with: URL(string: data.previewImageUrl))
         }
-    }
-    
-    func tagPhoto(isTag: Bool = false) {
-        view_check.isHidden = !isTag
     }
     
     private func componentsInit() {

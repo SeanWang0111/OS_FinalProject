@@ -210,11 +210,30 @@
                                     <outlet property="delegate" destination="DNu-7t-I4W" id="pHT-7f-SAO"/>
                                 </connections>
                             </collectionView>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="p0L-NI-cyf">
-                                <rect key="frame" x="200" y="598" width="190" height="60"/>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="p0L-NI-cyf">
+                                <rect key="frame" x="75" y="598" width="315" height="60"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLO-RA-cAV" userLabel="View Select">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已選取 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-aG-SWc">
+                                                <rect key="frame" x="24.333333333333329" y="19.333333333333371" width="71.333333333333329" height="21.666666666666671"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="FAF-aG-SWc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bLO-RA-cAV" secondAttribute="leading" constant="15" id="0L8-IH-8vG"/>
+                                            <constraint firstItem="FAF-aG-SWc" firstAttribute="centerY" secondItem="bLO-RA-cAV" secondAttribute="centerY" id="3JY-jG-ctM"/>
+                                            <constraint firstItem="FAF-aG-SWc" firstAttribute="centerX" secondItem="bLO-RA-cAV" secondAttribute="centerX" id="Cby-1H-P2a"/>
+                                            <constraint firstAttribute="width" constant="120" id="VEW-5D-mwh"/>
+                                            <constraint firstAttribute="height" constant="60" id="Z6c-Wr-den"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UbO-1d-T7L" userLabel="View New Folder">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="125" y="0.0" width="60" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oa1-UT-rRa">
                                                 <rect key="frame" x="10" y="11.333333333333332" width="41.333333333333329" height="37.333333333333343"/>
@@ -234,7 +253,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEc-Gg-lVd" userLabel="View Down Load">
-                                        <rect key="frame" x="65" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="190" y="0.0" width="60" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xBe-kA-9BD">
                                                 <rect key="frame" x="10" y="9.9999999999999964" width="40" height="39.666666666666671"/>
@@ -254,7 +273,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSk-Lp-r29" userLabel="View Trash">
-                                        <rect key="frame" x="130" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="255" y="0.0" width="60" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trash.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rNm-Pq-llN">
                                                 <rect key="frame" x="10" y="11.666666666666664" width="40" height="37"/>
@@ -413,6 +432,7 @@
                         <outlet property="view_downLoad" destination="oEc-Gg-lVd" id="rR8-0a-Rc8"/>
                         <outlet property="view_loading" destination="IWm-uw-hM2" id="G2s-Sp-eeh"/>
                         <outlet property="view_newFolder" destination="UbO-1d-T7L" id="aph-DY-oUV"/>
+                        <outlet property="view_selectTotal" destination="FAF-aG-SWc" id="Ob4-bf-uw8"/>
                         <outlet property="view_title" destination="ifj-bg-2nl" id="vEh-tq-mh5"/>
                         <outlet property="view_trash" destination="lSk-Lp-r29" id="qGe-sg-Grn"/>
                     </connections>

@@ -69,15 +69,21 @@ class PhotoDetailVC: UIViewController {
         case album
     }
     
-    convenience init(photoData: [photoDataInfo], index: Int) {
+    convenience init(photoData: [photoDataInfo], index: Int, mode: Mode = .photo) {
         self.init()
         self.photoData = photoData
         photoIndex = index
+        self.mode = mode
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         componentsInit()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     private func componentsInit() {
@@ -246,17 +252,7 @@ class PhotoDetailVC: UIViewController {
     }
     
     @objc private func trashTapped() {
-        photoData.remove(at: photoIndex)
-        UserDefaultManager.setPhoto(photoData)
-        view.makeToast("刪除成功")
-        
-        guard !photoData.isEmpty else {
-            backTapped()
-            return
-        }
-        
-        photoIndex = photoIndex != 0 ? photoIndex - 1 : 0
-        componentsInit()
+        showChooseDialogVC(title: .removePhoto)
     }
     
     @objc private func hiddenTapped() {
@@ -304,3 +300,32 @@ extension PhotoDetailVC: ListDialogVCDelegate {
     }
 }
 
+extension PhotoDetailVC: ChooseDialogVCDelegate {
+    func confirmClickWith(title: Titles) {
+        removePresented() { [self] in
+            switch title {
+            case .removePhoto:
+                switch mode {
+                case .photo:
+                    photoData.remove(at: photoIndex)
+                    UserDefaultManager.setPhoto(photoData)
+                    view.makeToast("刪除成功")
+                    
+                    guard !photoData.isEmpty else {
+                        backTapped()
+                        return
+                    }
+                    
+                    photoIndex = photoIndex != 0 ? photoIndex - 1 : 0
+                    componentsInit()
+                    
+                case .album:
+                    break
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+}
