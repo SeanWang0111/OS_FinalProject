@@ -36,12 +36,25 @@ class AlbumMainVC: NotificationVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 暫定新增要更新
-        let newAlbum = UserDefaultManager.getAlbum()
-        if newAlbum.count != albumData.count {
+        
+        if UserDefaultManager.getReloadData(), ViewController.selectIndex == 1 {
+            let parentVC = parent as? ViewController
+            parentVC?.ReloadData()
             albumData = UserDefaultManager.getAlbum()
             collectionView.reloadData()
+            UserDefaultManager.setReloadData(false)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /// 新增相簿
+        let newPhotoArr: [photoDataInfo] = UserDefaultManager.getAlbumNew()
+        guard !newPhotoArr.isEmpty  else { return }
+        let parentVC = parent as? ViewController
+        parentVC?.ReloadData()
+        navigationController?.pushViewController(NewAlbumVC(mode: .new, photoData: newPhotoArr), animated: true)
+        UserDefaultManager.clearAlbumNew()
     }
     
     override func updateData() {
@@ -66,6 +79,7 @@ class AlbumMainVC: NotificationVC {
         view_edit.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editTapped)))
         
         stackView_menu.layer.maskedCorners = [.layerMinXMinYCorner]
+        view_newFolder.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(newFolderTapped)))
     }
     
     private func collectionViewInit() {
@@ -79,6 +93,11 @@ class AlbumMainVC: NotificationVC {
         isRemove.toggle()
         let parentVC = parent as? ViewController
         parentVC?.useCollection(isUse: !isRemove)
+    }
+    
+    @objc private func newFolderTapped() {
+        editTapped()
+        navigationController?.pushViewController(OverViewVC(mode: .newAlbum, photoData: [photoDataInfo]()), animated: true)
     }
 }
 
@@ -98,7 +117,7 @@ extension AlbumMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
             selectIndex = indexPath.row
             showChooseDialogVC(title: .removePhoto)
         } else {
-            navigationController?.pushViewController(AlbumDetailVC(albumData: albumData[indexPath.row]), animated: true)
+            navigationController?.pushViewController(AlbumDetailVC(albumData: albumData, albumIndex: indexPath.row), animated: true)
         }
     }
 }

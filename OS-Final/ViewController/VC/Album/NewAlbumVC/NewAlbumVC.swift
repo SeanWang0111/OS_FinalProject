@@ -63,6 +63,7 @@ class NewAlbumVC: NotificationVC {
     
     private func componentsInit() {
         title = "\(mode == .new ? "新增" : "編輯")相簿"
+        imageView_photo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(photoTapped)))
         
         textViewInit()
         imageInit()
@@ -76,12 +77,12 @@ class NewAlbumVC: NotificationVC {
         textView.delegate = self
     }
     
-    private func imageInit() {
-        if let image = UIImage(data: photoData[0].image) {
+    private func imageInit(index: Int = 0) {
+        if let image = UIImage(data: photoData[index].image) {
             imageView_photo.image = image
-            albumImage = photoData[0].image
+            albumImage = photoData[index].image
         } else {
-            if let urlStr: URL = URL(string: photoData[0].previewImageUrl), let data: Data = try? Data(contentsOf: urlStr) {
+            if let urlStr: URL = URL(string: photoData[index].previewImageUrl), let data: Data = try? Data(contentsOf: urlStr) {
                 imageView_photo.sd_setImage(with: urlStr)
                 albumImage = data
             }
@@ -95,6 +96,12 @@ class NewAlbumVC: NotificationVC {
         view.addGestureRecognizer(tapGR)
     }
     
+    @objc private func photoTapped() {
+        let VC = OverViewVC(mode: .AlbumCover, photoData: photoData)
+        VC.delegate = self
+        navigationController?.pushViewController(VC, animated: true)
+    }
+    
     @objc private func finishTapped() {
         view.endEditing(true)
         guard !textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -105,6 +112,7 @@ class NewAlbumVC: NotificationVC {
         guard let urlStr: String = textView.text else { return }
         albumData.append(albumDataInfo(image: albumImage, title: urlStr, total: photoData.count, photoData: photoData))
         UserDefaultManager.setAlbum(albumData)
+        UserDefaultManager.setReloadData(true)
         view.makeToast("新增完成")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -136,5 +144,11 @@ extension NewAlbumVC: UITextViewDelegate {
 extension NewAlbumVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return true
+    }
+}
+
+extension NewAlbumVC: OverViewVCDelegate {
+    func coverChange(index: Int) {
+        imageInit(index: index)
     }
 }

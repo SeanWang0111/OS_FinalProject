@@ -12,15 +12,17 @@ class AlbumDetailVC: NotificationVC {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
-    private var albumData: albumDataInfo? = nil
+    private var albumData = [albumDataInfo]()
+    private var albumIndex: Int = 0
     private var photoData = [photoDataInfo]()
     
     private var isChoose: Bool = false
     private var choosePhoto = [Int]()
     
-    convenience init(albumData: albumDataInfo) {
+    convenience init(albumData: [albumDataInfo], albumIndex: Int) {
         self.init()
         self.albumData = albumData
+        self.albumIndex = albumIndex
     }
     
     override func viewDidLoad() {
@@ -37,13 +39,23 @@ class AlbumDetailVC: NotificationVC {
         // 滑動返回
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+        // 新增照片
+        let newPhotoArr: [photoDataInfo] = UserDefaultManager.getAlbumNew()
+        guard !newPhotoArr.isEmpty  else { return }
+        photoData.append(contentsOf: newPhotoArr)
+        collectionView.reloadData()
+        albumData[albumIndex].total = photoData.count
+        albumData[albumIndex].photoData = photoData
+        UserDefaultManager.setAlbum(albumData)
+        UserDefaultManager.setReloadData(true)
+        UserDefaultManager.clearAlbumNew()
+        collectionView.reloadData()
     }
     
     private func componentsInit() {
-        if let data = albumData {
-            title = data.title
-            photoData = data.photoData
-        }
+        title = albumData[albumIndex].title
+        photoData = albumData[albumIndex].photoData
         
         collectionViewInit()
     }
@@ -99,18 +111,11 @@ extension AlbumDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, U
             }
         } else {
             if indexPath.row >= photoData.count {
-                navigationController?.pushViewController(NewPhotoVC(), animated: true)
+                navigationController?.pushViewController(OverViewVC(mode: .newAlbum, photoData: [photoDataInfo]()), animated: true)
             } else {
-                let VC = PhotoDetailVC(photoData: photoData, index: indexPath.row, mode: .album)
-                VC.delegate = self
-                navigationController?.pushViewController(VC, animated: true)
+                navigationController?.pushViewController(PhotoDetailVC(photoData: photoData, index: indexPath.row, mode: .album), animated: true)
             }
         }
-    }
-}
-
-extension AlbumDetailVC: PhotoDetailVCDelegate {
-    func needReload() {
     }
 }
 

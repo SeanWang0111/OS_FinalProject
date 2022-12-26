@@ -43,7 +43,6 @@ class PhotoMainVC: NotificationVC {
     }}
     private var photoData = UserDefaultManager.getPhoto()
     private var albumData = UserDefaultManager.getAlbum()
-    private var isNeedReload: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,10 +51,10 @@ class PhotoMainVC: NotificationVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isNeedReload {
-            isNeedReload = false
+        if UserDefaultManager.getReloadData(), ViewController.selectIndex == 0 {
             let parentVC = parent as? ViewController
             parentVC?.ReloadData()
+            UserDefaultManager.setReloadData(false)
         }
         // 看內容 新增刷新
         guard !isChoose else { return }
@@ -90,7 +89,6 @@ class PhotoMainVC: NotificationVC {
         view_choose.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseTapped)))
         
         stackView_menu.layer.maskedCorners = [.layerMinXMinYCorner]
-        
         view_newFolder.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(newFolderTapped)))
         view_downLoad.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(downLoadTapped)))
         view_trash.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(trashTapped)))
@@ -235,9 +233,7 @@ extension PhotoMainVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             if indexPath.row >= photoData.count {
                 navigationController?.pushViewController(NewPhotoVC(), animated: true)
             } else {
-                let VC = PhotoDetailVC(photoData: photoData, index: indexPath.row)
-                VC.delegate = self
-                navigationController?.pushViewController(VC, animated: true)
+                navigationController?.pushViewController(PhotoDetailVC(photoData: photoData, index: indexPath.row), animated: true)
             }
         }
     }
@@ -304,11 +300,5 @@ extension PhotoMainVC: ListDialogVCDelegate {
                 navigationController?.pushViewController(NewAlbumVC(mode: .new, photoData: newPhotoArr), animated: true)
             }
         }
-    }
-}
-
-extension PhotoMainVC: PhotoDetailVCDelegate {
-    func needReload() {
-        isNeedReload = true
     }
 }

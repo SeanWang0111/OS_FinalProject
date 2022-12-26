@@ -9,10 +9,6 @@ import UIKit
 import AVFoundation
 import Photos
 
-protocol PhotoDetailVCDelegate: AnyObject {
-    func needReload()
-}
-
 class PhotoDetailVC: UIViewController {
     
     @IBOutlet var scrollView: UIScrollView!
@@ -61,8 +57,6 @@ class PhotoDetailVC: UIViewController {
     private var player: AVPlayer?
     private var isFirstPlay: Bool = true
     private var isPlay: Bool = false
-    
-    weak var delegate: PhotoDetailVCDelegate?
     
     enum Mode {
         case photo
@@ -283,7 +277,7 @@ extension PhotoDetailVC: UIScrollViewDelegate {
 extension PhotoDetailVC: ListDialogVCDelegate {
     func listDidClick(index: Int) {
         removePresented() { [self] in
-            delegate?.needReload()
+            UserDefaultManager.setReloadData(true)
             
             if albumData.indices.contains(index) {
                 // 匯入已有的相簿

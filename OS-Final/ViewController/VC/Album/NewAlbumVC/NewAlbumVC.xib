@@ -101,7 +101,7 @@
                     <color key="shadowColor" name="white_FFFFFF"/>
                     <size key="shadowOffset" width="2" height="1"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-XM-Tyc">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-XM-Tyc">
                     <rect key="frame" x="20" y="184.33333333333337" width="350" height="350"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="2FC-XM-Tyc" secondAttribute="height" multiplier="1:1" id="Wbr-QT-K6L"/>

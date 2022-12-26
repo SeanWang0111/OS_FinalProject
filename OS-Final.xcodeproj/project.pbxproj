@@ -42,6 +42,8 @@
 		8C7951E8295087CA00D70E56 /* EnumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7951E7295087CA00D70E56 /* EnumManager.swift */; };
 		8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */; };
 		8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */; };
+		8C8752E2295706B30077DE9E /* OverViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C8752E0295706B30077DE9E /* OverViewVC.swift */; };
+		8C8752E3295706B30077DE9E /* OverViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C8752E1295706B30077DE9E /* OverViewVC.xib */; };
 		8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C958F39293E047D000EF211 /* UIImage+.swift */; };
 		8CA3BC17293F29BF00B029C7 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3BC16293F29BF00B029C7 /* UIColor+.swift */; };
 		8CA3BC19293F2E0900B029C7 /* AlbumMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3BC18293F2E0900B029C7 /* AlbumMainVC.swift */; };
@@ -123,6 +125,8 @@
 		8C7951E7295087CA00D70E56 /* EnumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumManager.swift; sourceTree = "<group>"; };
 		8C810AD92930DCCA004E5347 /* BarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCollectionViewCell.swift; sourceTree = "<group>"; };
 		8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BarCollectionViewCell.xib; sourceTree = "<group>"; };
+		8C8752E0295706B30077DE9E /* OverViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewVC.swift; sourceTree = "<group>"; };
+		8C8752E1295706B30077DE9E /* OverViewVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverViewVC.xib; sourceTree = "<group>"; };
 		8C958F39293E047D000EF211 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		8CA3BC16293F29BF00B029C7 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		8CA3BC18293F2E0900B029C7 /* AlbumMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMainVC.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				8C0CA6052944841C0095AB57 /* NewPhotoVC */,
+				8C8752DF295706910077DE9E /* OverViewVC */,
 				8C0886572949F7CC008F6620 /* PhotoDetailVC */,
 			);
 			path = Photo;
@@ -395,6 +400,15 @@
 				8C810ADA2930DCCA004E5347 /* BarCollectionViewCell.xib */,
 			);
 			path = BarCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		8C8752DF295706910077DE9E /* OverViewVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C8752E0295706B30077DE9E /* OverViewVC.swift */,
+				8C8752E1295706B30077DE9E /* OverViewVC.xib */,
+			);
+			path = OverViewVC;
 			sourceTree = "<group>";
 		};
 		8C958F37293E0444000EF211 /* Extension */ = {
@@ -673,6 +687,7 @@
 				8CA3BC23293F377D00B029C7 /* AlbumCollectionViewCell.xib in Resources */,
 				8C1BDA83293F62F300176BED /* PhotoCollectionViewCell.xib in Resources */,
 				8C08865B2949F7F0008F6620 /* PhotoDetailVC.xib in Resources */,
+				8C8752E3295706B30077DE9E /* OverViewVC.xib in Resources */,
 				8CCEAD4E2955C0C100A24A42 /* AlbumDetailVC.xib in Resources */,
 				8CB1D6742951AF9B006B6E5B /* NewAlbumVC.xib in Resources */,
 				8C810ADC2930DCCA004E5347 /* BarCollectionViewCell.xib in Resources */,
@@ -834,6 +849,7 @@
 				8CA3BC1B293F2EAA00B029C7 /* SettingMainVC.swift in Sources */,
 				8C4E94C32930CFDF007591E6 /* SceneDelegate.swift in Sources */,
 				8CA3BC22293F377D00B029C7 /* AlbumCollectionViewCell.swift in Sources */,
+				8C8752E2295706B30077DE9E /* OverViewVC.swift in Sources */,
 				8CFE2BF52944770500398413 /* MediaGetterRes.swift in Sources */,
 				8C08865029472621008F6620 /* UserDefaultManager.swift in Sources */,
 				8C0886522947463A008F6620 /* photoDataInfo.swift in Sources */,

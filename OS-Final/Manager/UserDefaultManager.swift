@@ -7,11 +7,14 @@
 
 import UIKit
 import Foundation
+
 class UserDefaultManager {
     
     private enum defaultKeyStr: String {
         case album = "Album"
+        case albumNew = "AlbumNew"
         case photo = "Photo"
+        case reloadData = "ReloadData"
     }
     
     /// 相簿
@@ -31,6 +34,22 @@ class UserDefaultManager {
         UserDefaults().synchronize()
     }
     
+    // 新增相簿 專門用於相簿主頁
+    static func clearAlbumNew() {
+        UserDefaults.standard.removeObject(forKey: defaultKeyStr.albumNew.rawValue)
+    }
+    
+    static func getAlbumNew() -> [photoDataInfo] {
+        guard let data = UserDefaults().object(forKey: defaultKeyStr.albumNew.rawValue) as? Data, let dataInfo = try? JSONDecoder().decode([photoDataInfo].self, from: data) else { return [photoDataInfo]() }
+        return dataInfo
+    }
+    
+    static func setAlbumNew(_ photo: [photoDataInfo]) {
+        let data = try? photo.toData()
+        UserDefaults().set(data, forKey: defaultKeyStr.albumNew.rawValue)
+        UserDefaults().synchronize()
+    }
+    
     /// 圖庫
     // 自己本地清除用途
     static func clearPhoto() {
@@ -45,6 +64,16 @@ class UserDefaultManager {
     static func setPhoto(_ photo: [photoDataInfo]) {
         let data = try? photo.toData()
         UserDefaults().set(data, forKey: defaultKeyStr.photo.rawValue)
+        UserDefaults().synchronize()
+    }
+    
+    /// 紀錄是否需要刷新資料
+    static func getReloadData() -> Bool {
+        return UserDefaults().object(forKey: defaultKeyStr.reloadData.rawValue) as? Bool ?? true
+    }
+    
+    static func setReloadData(_ shouldReload: Bool) {
+        UserDefaults().set(shouldReload, forKey: defaultKeyStr.reloadData.rawValue)
         UserDefaults().synchronize()
     }
 }
