@@ -7,6 +7,10 @@
 
 import UIKit
 
+@objc protocol NewAlbumVCDelegate: AnyObject {
+    func edited(titleStr: String, cover: Data)
+}
+
 class NewAlbumVC: NotificationVC {
     
     @IBOutlet var textView: UITextView!
@@ -20,6 +24,8 @@ class NewAlbumVC: NotificationVC {
     
     private var albumTitle: String = ""
     private var albumImage = Data()
+    
+    weak var delegate: NewAlbumVCDelegate?
     
     private lazy var label_placeHolder: UILabel = {
         let label = UILabel()
@@ -37,11 +43,12 @@ class NewAlbumVC: NotificationVC {
         case edit
     }
     
-    convenience init(mode: Mode, photoData: [photoDataInfo], title: String = "") {
+    convenience init(mode: Mode, photoData: [photoDataInfo], title: String = "", cover: Data = Data() ) {
         self.init()
         self.mode = mode
         self.photoData = photoData
         albumTitle = title
+        albumImage = cover
     }
     
     override func viewDidLoad() {
@@ -63,22 +70,26 @@ class NewAlbumVC: NotificationVC {
     
     private func componentsInit() {
         title = "\(mode == .new ? "新增" : "編輯")相簿"
-        imageView_photo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(photoTapped)))
+        if mode == .edit, let image: UIImage = UIImage(data: albumImage) {
+            imageView_photo.image = image
+        } else {
+            imageInit()
+        }
         
+        imageView_photo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(photoTapped)))
         textViewInit()
-        imageInit()
         setKillKeyBoardTapGR(tap: 1)
     }
     
     private func textViewInit() {
-        textView.text = ""
+        textView.text = albumTitle
         textView.addSubview(label_placeHolder)
         textView.bringSubviewToFront(label_placeHolder)
         textView.delegate = self
     }
     
     private func imageInit(index: Int = 0) {
-        if let image = UIImage(data: photoData[index].image) {
+        if let image: UIImage = UIImage(data: photoData[index].image) {
             imageView_photo.image = image
             albumImage = photoData[index].image
         } else {
@@ -110,15 +121,25 @@ class NewAlbumVC: NotificationVC {
         }
         
         guard let urlStr: String = textView.text else { return }
-        albumData.append(albumDataInfo(image: albumImage, title: urlStr, total: photoData.count, photoData: photoData))
-        UserDefaultManager.setAlbum(albumData)
-        UserDefaultManager.setReloadData(true)
-        view.makeToast("新增完成")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            guard let rootVC = UIApplication.getRootViewController() as? ViewController else { return }
-            rootVC.scroll(to: 1, animated: false)
-            rootVC.navigationController?.setViewControllers([rootVC], animated: false)
+        switch mode {
+        case .new:
+            albumData.append(albumDataInfo(image: albumImage, title: urlStr, total: photoData.count, photoData: photoData))
+            UserDefaultManager.setAlbum(albumData)
+            UserDefaultManager.setReloadData(true)
+            view.makeToast("新增完成")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                guard let rootVC = UIApplication.getRootViewController() as? ViewController else { return }
+                rootVC.scroll(to: 1, animated: false)
+                rootVC.navigationController?.setViewControllers([rootVC], animated: false)
+            }
+            
+        case .edit:
+            view.makeToast("編輯完成")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.delegate?.edited(titleStr: urlStr, cover: self.albumImage)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     

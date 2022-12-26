@@ -17,6 +17,12 @@ extension UIViewController {
         case pushFromLeft
     }
     
+    func showAlbumSettingDialogVC() {
+        let VC = AlbumSettingDialogVC()
+        VC.delegate = self as? AlbumSettingDialogVCDelegate
+        VC.dialogShow(vc: self)
+    }
+    
     func showChooseDialogVC(title: Titles) {
         let VC = ChooseDialogVC(title: title)
         VC.delegate = self as? ChooseDialogVCDelegate

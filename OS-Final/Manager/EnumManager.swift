@@ -11,6 +11,7 @@ import Foundation
     
     case downLoadToApp
     case downLoadToAlbum
+    case removeAlbum
     case removePhoto
     case removeSearch
     
@@ -21,6 +22,9 @@ import Foundation
             
         case .downLoadToAlbum:
             return "確認要下載至手機相簿中？"
+            
+        case .removeAlbum:
+            return "確認要刪除相簿？"
             
         case .removePhoto:
             return "確認要刪除？"

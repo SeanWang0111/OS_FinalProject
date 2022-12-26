@@ -53,6 +53,8 @@
 		8CA3BC23293F377D00B029C7 /* AlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA3BC21293F377D00B029C7 /* AlbumCollectionViewCell.xib */; };
 		8CB1D6732951AF9B006B6E5B /* NewAlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB1D6712951AF9B006B6E5B /* NewAlbumVC.swift */; };
 		8CB1D6742951AF9B006B6E5B /* NewAlbumVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB1D6722951AF9B006B6E5B /* NewAlbumVC.xib */; };
+		8CB340FA29598FB3007E94D5 /* AlbumSettingDialogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB340F829598FB3007E94D5 /* AlbumSettingDialogVC.swift */; };
+		8CB340FB29598FB3007E94D5 /* AlbumSettingDialogVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB340F929598FB3007E94D5 /* AlbumSettingDialogVC.xib */; };
 		8CC5D0B9293E12380063D262 /* PhotoMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */; };
 		8CCEAD4D2955C0C100A24A42 /* AlbumDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCEAD4B2955C0C100A24A42 /* AlbumDetailVC.swift */; };
 		8CCEAD4E2955C0C100A24A42 /* AlbumDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCEAD4C2955C0C100A24A42 /* AlbumDetailVC.xib */; };
@@ -136,6 +138,8 @@
 		8CA3BC21293F377D00B029C7 /* AlbumCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCollectionViewCell.xib; sourceTree = "<group>"; };
 		8CB1D6712951AF9B006B6E5B /* NewAlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlbumVC.swift; sourceTree = "<group>"; };
 		8CB1D6722951AF9B006B6E5B /* NewAlbumVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAlbumVC.xib; sourceTree = "<group>"; };
+		8CB340F829598FB3007E94D5 /* AlbumSettingDialogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSettingDialogVC.swift; sourceTree = "<group>"; };
+		8CB340F929598FB3007E94D5 /* AlbumSettingDialogVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumSettingDialogVC.xib; sourceTree = "<group>"; };
 		8CC5D0B8293E12380063D262 /* PhotoMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMainVC.swift; sourceTree = "<group>"; };
 		8CCEAD4B2955C0C100A24A42 /* AlbumDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailVC.swift; sourceTree = "<group>"; };
 		8CCEAD4C2955C0C100A24A42 /* AlbumDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumDetailVC.xib; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 		8C0886562949F7AC008F6620 /* DialogVC */ = {
 			isa = PBXGroup;
 			children = (
+				8CB340F729598F88007E94D5 /* AlbumSettingDialogVC */,
 				8C7951E2295082C800D70E56 /* ChooseDialogVC */,
 				8C116D9A29533034009D9D56 /* ListDialogVC */,
 			);
@@ -476,6 +481,15 @@
 			path = NewAlbumVC;
 			sourceTree = "<group>";
 		};
+		8CB340F729598F88007E94D5 /* AlbumSettingDialogVC */ = {
+			isa = PBXGroup;
+			children = (
+				8CB340F829598FB3007E94D5 /* AlbumSettingDialogVC.swift */,
+				8CB340F929598FB3007E94D5 /* AlbumSettingDialogVC.xib */,
+			);
+			path = AlbumSettingDialogVC;
+			sourceTree = "<group>";
+		};
 		8CC5D0B5293E11EA0063D262 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,6 +695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C4E94CD2930CFE0007591E6 /* LaunchScreen.storyboard in Resources */,
+				8CB340FB29598FB3007E94D5 /* AlbumSettingDialogVC.xib in Resources */,
 				8C7951E6295082DE00D70E56 /* ChooseDialogVC.xib in Resources */,
 				8C4E94CA2930CFE0007591E6 /* Assets.xcassets in Resources */,
 				8C0CA6042944840D0095AB57 /* NewPhotoVC.xib in Resources */,
@@ -839,6 +854,7 @@
 				8C958F3A293E047D000EF211 /* UIImage+.swift in Sources */,
 				8C0CA6032944840D0095AB57 /* NewPhotoVC.swift in Sources */,
 				8C08865A2949F7F0008F6620 /* PhotoDetailVC.swift in Sources */,
+				8CB340FA29598FB3007E94D5 /* AlbumSettingDialogVC.swift in Sources */,
 				8C116D9929531B6C009D9D56 /* albumDataInfo.swift in Sources */,
 				8C116D9F2953305F009D9D56 /* ListDialogVC.swift in Sources */,
 				8C810ADB2930DCCA004E5347 /* BarCollectionViewCell.swift in Sources */,

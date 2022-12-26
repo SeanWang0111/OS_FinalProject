@@ -18,6 +18,7 @@
                 <outlet property="imageView_play" destination="wxc-e0-gpA" id="xNw-r1-j7I"/>
                 <outlet property="imageView_preset1" destination="WVN-Kt-oIV" id="E58-RI-xIp"/>
                 <outlet property="imageView_preset2" destination="XT5-KI-hSc" id="UFn-z5-96q"/>
+                <outlet property="label_page" destination="WX1-Kf-Lyr" id="5b0-VT-Q33"/>
                 <outlet property="scrollView" destination="CkB-pT-Age" id="gMo-zO-RCP"/>
                 <outlet property="stackView_preset" destination="aDO-dZ-JNb" id="3Gj-DA-Ug1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -149,10 +150,18 @@
                                 <constraint firstAttribute="width" constant="120" id="drR-ae-HWJ"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 / 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WX1-Kf-Lyr" userLabel="Label Page">
+                            <rect key="frame" x="174.33333333333334" y="18" width="41.333333333333343" height="24"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" name="white_FFFFFF"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" name="white_FFFFFF_20"/>
                     <constraints>
+                        <constraint firstItem="WX1-Kf-Lyr" firstAttribute="centerX" secondItem="KsS-t0-Sgp" secondAttribute="centerX" id="8jG-m2-9T1"/>
                         <constraint firstAttribute="height" constant="60" id="Afd-tc-W9l"/>
+                        <constraint firstItem="WX1-Kf-Lyr" firstAttribute="centerY" secondItem="KsS-t0-Sgp" secondAttribute="centerY" id="ILr-yU-WFA"/>
                         <constraint firstItem="9uc-J3-SxI" firstAttribute="leading" secondItem="KsS-t0-Sgp" secondAttribute="leading" id="MzO-2D-eaK"/>
                         <constraint firstAttribute="bottom" secondItem="9uc-J3-SxI" secondAttribute="bottom" id="NDq-GA-S2Y"/>
                         <constraint firstItem="9uc-J3-SxI" firstAttribute="top" secondItem="KsS-t0-Sgp" secondAttribute="top" id="nIc-GN-SvL"/>

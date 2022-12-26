@@ -30,8 +30,8 @@
             filePath = "OS-Final/ViewController/VC/Album/AlbumDetailVC/AlbumDetailVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -9,6 +9,10 @@ import UIKit
 import AVFoundation
 import Photos
 
+@objc protocol PhotoDetailVCDelegate: AnyObject {
+    func isAlbumDetail()
+}
+
 class PhotoDetailVC: UIViewController {
     
     @IBOutlet var scrollView: UIScrollView!
@@ -29,6 +33,7 @@ class PhotoDetailVC: UIViewController {
     @IBOutlet var view_top: UIView!
     @IBOutlet var view_bar: UIView!
     @IBOutlet var view_back: UIView!
+    @IBOutlet var label_page: UILabel!
     
     // 下方選單區塊
     @IBOutlet var view_menu: UIView!
@@ -42,7 +47,10 @@ class PhotoDetailVC: UIViewController {
     
     private var photoData = [photoDataInfo]()
     private var albumData = UserDefaultManager.getAlbum()
-    private var photoIndex: Int = 0
+    private var photoIndex: Int = 0 { didSet {
+        label_page.text = "\(photoIndex + 1) / \(photoData.count)"
+    }}
+    
     private var mode: Mode = .photo
     private var isReloadData: Bool = false
     
@@ -58,6 +66,10 @@ class PhotoDetailVC: UIViewController {
     private var isFirstPlay: Bool = true
     private var isPlay: Bool = false
     
+    private var albumDetailCount: Int = 0
+    
+    weak var delegate: PhotoDetailVCDelegate?
+    
     enum Mode {
         case photo
         case album
@@ -66,6 +78,8 @@ class PhotoDetailVC: UIViewController {
     convenience init(photoData: [photoDataInfo], index: Int, mode: Mode = .photo) {
         self.init()
         self.photoData = photoData
+        // 為相簿設置
+        albumDetailCount = photoData.count
         photoIndex = index
         self.mode = mode
     }
@@ -78,12 +92,21 @@ class PhotoDetailVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        // 滑動返回
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard mode == .album, photoData.count != albumDetailCount else { return }
+        UserDefaultManager.setAlbumNew(photoData)
+        delegate?.isAlbumDetail()
     }
     
     private func componentsInit() {
+        label_page.text = "\(photoIndex + 1) / \(photoData.count)"
         viewInit()
         presetImageInit()
-        
         switchInit()
     }
     
@@ -246,7 +269,17 @@ class PhotoDetailVC: UIViewController {
     }
     
     @objc private func trashTapped() {
-        showChooseDialogVC(title: .removePhoto)
+        switch mode {
+        case .photo:
+            showChooseDialogVC(title: .removePhoto)
+            
+        case .album:
+            guard photoData.count != 1 else {
+                view.makeToast("相簿至少一張圖片")
+                return
+            }
+            showChooseDialogVC(title: .removePhoto)
+        }
     }
     
     @objc private func hiddenTapped() {
@@ -314,7 +347,16 @@ extension PhotoDetailVC: ChooseDialogVCDelegate {
                     componentsInit()
                     
                 case .album:
-                    break
+                    photoData.remove(at: photoIndex)
+                    view.makeToast("刪除成功")
+                    
+                    guard !photoData.isEmpty else {
+                        backTapped()
+                        return
+                    }
+                    
+                    photoIndex = photoIndex != 0 ? photoIndex - 1 : 0
+                    componentsInit()
                 }
                 
             default:
@@ -323,3 +365,4 @@ extension PhotoDetailVC: ChooseDialogVCDelegate {
         }
     }
 }
+
