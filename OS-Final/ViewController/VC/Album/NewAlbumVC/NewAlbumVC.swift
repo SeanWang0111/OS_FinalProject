@@ -19,7 +19,7 @@ class NewAlbumVC: NotificationVC {
     @IBOutlet var imageView_photo: UIImageView!
     
     private var photoData = [photoDataInfo]()
-    private var albumData = UserDefaultManager.getAlbum()
+    private var albumData: [albumDataInfo] = UserDefaultManager.getAlbum()
     private var mode: Mode = .new
     
     private var albumTitle: String = ""

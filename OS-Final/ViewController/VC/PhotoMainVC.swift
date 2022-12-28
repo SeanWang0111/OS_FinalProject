@@ -41,8 +41,8 @@ class PhotoMainVC: NotificationVC {
     private var choosePhoto = [Int]() { didSet {
         view_selectTotal.text = "已選取 \(choosePhoto.count)"
     }}
-    private var photoData = UserDefaultManager.getPhoto()
-    private var albumData = UserDefaultManager.getAlbum()
+    private var photoData: [photoDataInfo] = UserDefaultManager.getPhoto()
+    private var albumData: [albumDataInfo] = UserDefaultManager.getAlbum()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +63,13 @@ class PhotoMainVC: NotificationVC {
         parentVC?.useCollection(isUse: true)
         photoData = UserDefaultManager.getPhoto()
         collectionView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !photoData.isEmpty {
+            collectionView.scrollToItem(at: IndexPath(item: photoData.count - 1, section: 0), at: .bottom, animated: false)
+        }
     }
     
     override func updateData() {
@@ -102,6 +109,7 @@ class PhotoMainVC: NotificationVC {
         collectionView_flowLayout.itemSize = CGSize(width: (AppWidth - 30) / 3, height: (AppWidth - 30) / 3)
     }
     
+    /// 依序下載圖片 / 影片
     private func downLoadPhoto(photoIndex: Int) {
         let index: Int = choosePhoto[photoIndex]
         
@@ -146,6 +154,7 @@ class PhotoMainVC: NotificationVC {
         }
     }
     
+    // 設定下載進度
     private func setProgressRing(value: Int) {
         label_loading.text = "\(value) / \(choosePhoto.count)"
         progressRing_Loading.value = CGFloat(value)

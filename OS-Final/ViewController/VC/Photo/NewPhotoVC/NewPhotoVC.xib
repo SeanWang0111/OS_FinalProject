@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewPhotoVC" customModule="OS_Final" customModuleProvider="target">
             <connections>
+                <outlet property="imageView_loading" destination="qnd-wY-pnQ" id="47f-qL-ApH"/>
                 <outlet property="imageView_photo" destination="5x9-dT-wN3" id="Pg6-5P-EPu"/>
                 <outlet property="label_imageCount" destination="mFB-rO-hf8" id="VFe-My-dVP"/>
                 <outlet property="pageControl" destination="Khp-w0-6I2" id="XK5-j1-IW5"/>
@@ -22,6 +23,7 @@
                 <outlet property="view_imageCount" destination="qix-cj-nFN" id="aaZ-1A-Jbf"/>
                 <outlet property="view_import" destination="1SR-NE-res" id="WpT-aG-J1N"/>
                 <outlet property="view_left" destination="AN9-Zl-cfx" id="1V0-FD-0Vs"/>
+                <outlet property="view_loading" destination="fc8-RQ-ct4" id="Gdj-Vv-wVz"/>
                 <outlet property="view_remove" destination="zFK-Yg-ijQ" id="m5N-6e-tQf"/>
                 <outlet property="view_right" destination="EcI-xO-CuB" id="slp-tt-gqU"/>
                 <outlet property="view_search" destination="93H-xy-PF0" id="bzA-De-sfM"/>
@@ -332,15 +334,47 @@
                         <constraint firstItem="zFK-Yg-ijQ" firstAttribute="centerY" secondItem="QwA-PM-qdr" secondAttribute="centerY" id="zNh-7t-M1c"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fc8-RQ-ct4" userLabel="View Loading">
+                    <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading.gif" translatesAutoresizingMaskIntoConstraints="NO" id="qnd-wY-pnQ" customClass="SDAnimatedImageView">
+                            <rect key="frame" x="0.0" y="272" width="390" height="300"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="300" id="rd4-2a-fPN"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                    <color key="value" name="black_000000_50"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <real key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <size key="value" width="4" height="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="qnd-wY-pnQ" firstAttribute="centerX" secondItem="fc8-RQ-ct4" secondAttribute="centerX" id="DAi-xI-HpU"/>
+                        <constraint firstItem="qnd-wY-pnQ" firstAttribute="leading" secondItem="fc8-RQ-ct4" secondAttribute="leading" id="EJ3-yy-Gom"/>
+                        <constraint firstItem="qnd-wY-pnQ" firstAttribute="centerY" secondItem="fc8-RQ-ct4" secondAttribute="centerY" id="J8P-pw-Po4"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="QwA-PM-qdr" secondAttribute="bottom" id="0cX-ge-fOP"/>
+                <constraint firstItem="fc8-RQ-ct4" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="29J-po-dxj"/>
                 <constraint firstItem="DVl-ot-GV8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5Fx-oC-gUP"/>
                 <constraint firstItem="G88-xI-Pbf" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="5lW-dd-oLn"/>
+                <constraint firstItem="fc8-RQ-ct4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9P9-IB-2Kg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="k8q-mk-dUw" secondAttribute="trailing" id="AnO-Yu-NNJ"/>
                 <constraint firstItem="QwA-PM-qdr" firstAttribute="top" secondItem="CKo-5t-ojo" secondAttribute="bottom" constant="20" id="FPc-XF-uR6"/>
+                <constraint firstItem="fc8-RQ-ct4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="G48-8K-vme"/>
+                <constraint firstAttribute="bottom" secondItem="fc8-RQ-ct4" secondAttribute="bottom" id="GkV-J8-7eL"/>
                 <constraint firstItem="G88-xI-Pbf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Iwx-Wc-9Ix"/>
                 <constraint firstItem="Khp-w0-6I2" firstAttribute="top" secondItem="CKo-5t-ojo" secondAttribute="bottom" id="Jaj-Aw-WSd"/>
                 <constraint firstItem="QwA-PM-qdr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KXL-8e-R2N"/>
@@ -361,6 +395,7 @@
     </objects>
     <resources>
         <image name="background" width="3600" height="7200"/>
+        <image name="loading.gif" width="1167" height="359"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="black_000000_25">

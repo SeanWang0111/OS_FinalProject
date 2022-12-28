@@ -27,7 +27,7 @@ class ViewController: NotificationVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let isRootVC: Bool = (navigationController?.viewControllers.last is ViewController)
+        let isRootVC: Bool = navigationController?.viewControllers.last is ViewController
         navigationController?.setNavigationBarHidden(isRootVC, animated: false)
     }
     

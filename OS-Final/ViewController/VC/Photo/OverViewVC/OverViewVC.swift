@@ -17,7 +17,7 @@ class OverViewVC: NotificationVC {
     @IBOutlet var collectionView_flowLayout: UICollectionViewFlowLayout!
     
     private var mode: Mode = .newAlbum
-    private var photoData = UserDefaultManager.getPhoto()
+    private var photoData: [photoDataInfo] = UserDefaultManager.getPhoto()
     private var choosePhoto = [Int]()
     
     weak var delegate: OverViewVCDelegate?

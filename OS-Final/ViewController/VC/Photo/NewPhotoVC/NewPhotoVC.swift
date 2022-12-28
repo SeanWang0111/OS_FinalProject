@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NewPhotoVC: NotificationVC {
     
@@ -29,6 +30,9 @@ class NewPhotoVC: NotificationVC {
     @IBOutlet var view_remove: UIView!
     @IBOutlet var view_import: UIView!
     
+    @IBOutlet var view_loading: UIView!
+    @IBOutlet var imageView_loading: SDAnimatedImageView!
+    
     private lazy var label_placeHolder: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 5, y: 10, width: textView.bounds.width - 5, height: 20)
@@ -40,7 +44,7 @@ class NewPhotoVC: NotificationVC {
         return label
     }()
     
-    private var photoData = UserDefaultManager.getPhoto()
+    private var photoData: [photoDataInfo] = UserDefaultManager.getPhoto()
     private var messageData = [MediaGetterRes.Messages]()
     
     private var index: Int = 0
@@ -206,6 +210,9 @@ extension NewPhotoVC: ChooseDialogVCDelegate {
                 let mainQueue = DispatchQueue.main
                 let secQueue = DispatchQueue.global()
                 let groupQueue = DispatchGroup()
+                self.view_loading.isHidden = false
+                self.imageView_loading.image = SDAnimatedImage(named: "loading.gif")
+                self.imageView_loading.startAnimating()
                 
                 for list in self.messageData {
                     secQueue.async(group: groupQueue) {
@@ -215,6 +222,8 @@ extension NewPhotoVC: ChooseDialogVCDelegate {
                 }
                 groupQueue.notify(queue: mainQueue) {
                     UserDefaultManager.setPhoto(self.photoData)
+                    self.view_loading.isHidden = true
+                    self.imageView_loading.stopAnimating()
                     self.view.makeToast("匯入成功")
                 }
                 

@@ -20,7 +20,7 @@ class AlbumMainVC: NotificationVC {
     @IBOutlet var stackView_menu: UIStackView!
     @IBOutlet var view_newFolder: UIView!
     
-    private var albumData = UserDefaultManager.getAlbum()
+    private var albumData: [albumDataInfo] = UserDefaultManager.getAlbum()
     private var selectIndex: Int = 0
     
     private var isRemove: Bool = false { didSet {
@@ -36,14 +36,12 @@ class AlbumMainVC: NotificationVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if UserDefaultManager.getReloadData(), ViewController.selectIndex == 1 {
-            let parentVC = parent as? ViewController
-            parentVC?.ReloadData()
-            albumData = UserDefaultManager.getAlbum()
-            collectionView.reloadData()
-            UserDefaultManager.setReloadData(false)
-        }
+        guard UserDefaultManager.getReloadData(), ViewController.selectIndex == 1 else { return }
+        let parentVC = parent as? ViewController
+        parentVC?.ReloadData()
+        albumData = UserDefaultManager.getAlbum()
+        collectionView.reloadData()
+        UserDefaultManager.setReloadData(false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -107,8 +105,8 @@ extension AlbumMainVC : UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AlbumCollectionViewCell else { return AlbumCollectionViewCell() }
-        cell.setCell(data: albumData[indexPath.row], isRemove: isRemove)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AlbumCollectionViewCell, let data = albumData.getObject(at: indexPath.row) else { return AlbumCollectionViewCell() }
+        cell.setCell(data: data, isRemove: isRemove)
         return cell
     }
     

@@ -81,13 +81,13 @@ class NotificationVC: UIViewController {
     @objc fileprivate func keyboardWillShowReceiver(notification: NSNotification) {
         let userInfo = notification.userInfo
         let keyboardFrame = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        guard let duration = userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double, let size = keyboardFrame?.cgRectValue else { return }
+        guard let duration: Double = userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double, let size = keyboardFrame?.cgRectValue else { return }
         keyboardWillShow(duration: duration, height: size.height)
     }
 
     @objc fileprivate func keyboardWillHideReceiver(notification: NSNotification) {
         let userInfo = notification.userInfo
-        guard let duration = userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let duration: Double = userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
         keyboardWillHide(duration: duration)
     }
 }

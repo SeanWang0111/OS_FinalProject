@@ -35,6 +35,12 @@ class PhotoDetailVC: UIViewController {
     @IBOutlet var view_back: UIView!
     @IBOutlet var label_page: UILabel!
     
+    // 影片時間進度
+    @IBOutlet var view_time: UIView!
+    @IBOutlet var label_nowTime: UILabel!
+    @IBOutlet var progress_video: UIProgressView!
+    @IBOutlet var label_endTime: UILabel!
+    
     // 下方選單區塊
     @IBOutlet var view_menu: UIView!
     @IBOutlet var view_newFolder: UIView!
@@ -46,7 +52,7 @@ class PhotoDetailVC: UIViewController {
     @IBOutlet var view_bottom: UIView!
     
     private var photoData = [photoDataInfo]()
-    private var albumData = UserDefaultManager.getAlbum()
+    private var albumData: [albumDataInfo] = UserDefaultManager.getAlbum()
     private var photoIndex: Int = 0 { didSet {
         label_page.text = "\(photoIndex + 1) / \(photoData.count)"
     }}
@@ -57,6 +63,7 @@ class PhotoDetailVC: UIViewController {
     private var isHiddenBar: Bool = false { didSet {
         view_top.isHidden = isHiddenBar
         view_bar.isHidden = isHiddenBar
+        view_time.isHidden = photoData[photoIndex].type == "video" ? isHiddenBar : true
         view_menu.isHidden = isHiddenBar
         view_bottom.isHidden = isHiddenBar
     }}
@@ -65,6 +72,8 @@ class PhotoDetailVC: UIViewController {
     private var player: AVPlayer?
     private var isFirstPlay: Bool = true
     private var isPlay: Bool = false
+    private var timer_video: Timer?
+    private var duration = CMTime()
     
     private var albumDetailCount: Int = 0
     
@@ -98,6 +107,7 @@ class PhotoDetailVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        closeTimer()
         guard mode == .album, photoData.count != albumDetailCount else { return }
         UserDefaultManager.setAlbumNew(photoData)
         delegate?.isAlbumDetail()
@@ -173,6 +183,7 @@ class PhotoDetailVC: UIViewController {
     private func setMenu() {
         view_newFolder.isHidden = mode == .album
         view_play.isHidden = photoData[photoIndex].type == "image"
+        view_time.isHidden = photoData[photoIndex].type == "image"
     }
     
     private func setScroll() {
@@ -195,6 +206,7 @@ class PhotoDetailVC: UIViewController {
         imageView_play.image = UIImage(systemName: "play.fill")
         view_player.isHidden = true
         isFirstPlay = true
+        closeTimer()
         isPlay = false
         
         guard photoData[photoIndex].type == "video" else { return }
@@ -205,10 +217,29 @@ class PhotoDetailVC: UIViewController {
         view_player.addSubview(blackView)
         
         let remoteURL = NSURL(string: photoData[photoIndex].originalContentUrl)
-        self.player = AVPlayer(url: remoteURL! as URL)
-        let layer = AVPlayerLayer(player: self.player)
+        player = AVPlayer(url: remoteURL! as URL)
+        duration = AVPlayerItem(url: remoteURL! as URL).asset.duration
+        setVideoProgress(endTime: Int(CMTimeGetSeconds(duration)))
+        let layer = AVPlayerLayer(player: player)
         layer.frame = view_player.bounds
         view_player.layer.addSublayer(layer)
+    }
+    
+    private func setVideoProgress(nowTime: Int = 0, endTime: Int) {
+        let needHour: Bool = endTime / 3600 != 0
+        label_nowTime.text = showTime(needHour: needHour, time: nowTime)
+        label_endTime.text = showTime(needHour: needHour, time: endTime)
+        DispatchQueue.main.async {
+            self.progress_video.progress = Float(nowTime) / Float(endTime)
+        }
+    }
+    
+    // 時間轉換
+    private func showTime(needHour: Bool, time: Int) -> String {
+        let hour: Int = time / 3600
+        let min: Int = time / 60
+        let sec: Int = time % 60
+        return needHour ? String(format: "%02d:%02d:%02d", hour, min, sec) : String(format: "%02d:%02d", min, sec)
     }
     
     // 設定預覽圖左邊還右邊圖示
@@ -216,6 +247,25 @@ class PhotoDetailVC: UIViewController {
         stackView_preset.isHidden = false
         imageView_preset1.isHidden = isLeft
         imageView_preset2.isHidden = !isLeft
+    }
+    
+    // 計時偵測影片時間和結束狀態
+    private func setTimer() {
+        guard timer_video == nil else { return }
+        timer_video = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+            self.setVideoProgress(nowTime: Int(self.player?.currentTime().seconds ?? 0), endTime: Int(CMTimeGetSeconds(self.duration)))
+            guard self.player?.currentTime().seconds == CMTimeGetSeconds(self.duration) else { return }
+            self.player?.seek(to: CMTime(value: 0, timescale: 1))
+            self.player?.pause()
+            self.isPlay = false
+            self.imageView_play.image = UIImage(systemName: "play.fill")
+        })
+    }
+    
+    private func closeTimer() {
+        guard timer_video != nil else { return }
+        timer_video?.invalidate()
+        timer_video = nil
     }
     
     @objc private func newFolderTapped() {
@@ -227,6 +277,7 @@ class PhotoDetailVC: UIViewController {
         case .readyToPlay:
             if isFirstPlay {
                 view_player.isHidden = false
+                setTimer()
             }
             
             isPlay.toggle()
