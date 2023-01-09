@@ -21,6 +21,12 @@ class NotificationVC: UIViewController {
         notificationsInit()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        deInitNavigationItems()
+        deInitNotifications()
+    }
+    
     /// 一定要放在viewWillAppear之後，不可以放在viewDidLoad！不然從其他頁面返回時，返回按鈕會被重置
     private func setNavigationBar() {
         // Set navigation bar color
@@ -37,6 +43,7 @@ class NotificationVC: UIViewController {
     
     private func notificationsInit() {
         NotificationCenter.default.addObserver(self, selector: #selector(APINotificationReceiver), name: Notification.Name("APINotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(APIFailedNotificationReceiver), name: Notification.Name("APIFailedNotification"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowReceiver), name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideReceiver), name: UIWindow.keyboardWillHideNotification, object: nil)
@@ -51,6 +58,7 @@ class NotificationVC: UIViewController {
         // 這裡把廣播一個一個去做刪除 而不使用NotificationCenter.default.removeObserver(self)來全部刪除
         // 因為有些頁面有自己的廣播必須保留不要被刪除 例如:videoListVC的廣播
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("APINotification"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("APIFailedNotification"), object: nil)
         
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
@@ -58,11 +66,9 @@ class NotificationVC: UIViewController {
     
     /// 鍵盤升起
     func keyboardWillShow(duration: Double, height: CGFloat) {
-        
     }
     /// 鍵盤下降
     func keyboardWillHide(duration: Double) {
-        
     }
     
     func updateData() {
@@ -72,6 +78,10 @@ class NotificationVC: UIViewController {
     @objc func APINotificationReceiver(notification: NSNotification) {
         DispatchQueue.main.async {
         }
+    }
+    
+    /// API發送失敗監聽處理
+    @objc func APIFailedNotificationReceiver(notification: NSNotification) {
     }
     
     @objc func backBarItemClick() {

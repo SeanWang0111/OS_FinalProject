@@ -72,6 +72,13 @@ class NewPhotoVC: NotificationVC {
         }
     }
     
+    override func APIFailedNotificationReceiver(notification: NSNotification) {
+        super.APIFailedNotificationReceiver(notification: notification)
+        DispatchQueue.main.async {
+            self.view.makeToast("搜尋失敗")
+        }
+    }
+    
     private func componentsInit() {
         title = "新增"
         

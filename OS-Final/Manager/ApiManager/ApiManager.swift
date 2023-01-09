@@ -33,9 +33,11 @@ class APIManager {
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             guard let data = data, error == nil else {
                 print("http error ", error.debugDescription)
+                // API Failed Broadcast
+                NotificationCenter.default.post(name: Notification.Name(NotificationMode.fail.rawValue), object: nil)
                 return
             }
-
+            
             dump(data)
             
             do {

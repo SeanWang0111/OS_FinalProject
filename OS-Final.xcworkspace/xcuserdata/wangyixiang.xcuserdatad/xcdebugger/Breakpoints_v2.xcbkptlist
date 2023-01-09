@@ -14,8 +14,8 @@
             filePath = "OS-Final/Manager/ApiManager/ApiManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "httpGet(apiName:resClass:)"
             landmarkType = "7">
          </BreakpointContent>
