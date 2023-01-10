@@ -183,7 +183,7 @@ class PhotoDetailVC: UIViewController {
     private func setMenu() {
         view_newFolder.isHidden = mode == .album
         view_play.isHidden = photoData[photoIndex].type == "image"
-        view_time.isHidden = photoData[photoIndex].type == "image"
+        view_time.isHidden = photoData[photoIndex].type == "video" ? isHiddenBar : true
     }
     
     private func setScroll() {
